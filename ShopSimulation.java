@@ -10,13 +10,13 @@ class ShopSimulation extends Simulation {
   /**
    * The availability of counters in the shop.
    */
-  public boolean[] available;
+  private boolean[] available;
 
   /**
    * The list of customer arrival events to populate
    * the simulation with.
    */
-  public Event[] initEvents;
+  private Event[] initEvents;
 
   /**
    * Constructor for a shop simulation.
@@ -40,7 +40,7 @@ class ShopSimulation extends Simulation {
     while (sc.hasNextDouble()) {
       double arrivalTime = sc.nextDouble();
       double serviceTime = sc.nextDouble();
-      initEvents[id] = new ShopEvent(ShopEvent.ARRIVAL,
+      initEvents[id] = new ShopEventArrival(
           arrivalTime, id, serviceTime, available);
       id += 1;
     }

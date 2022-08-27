@@ -1,7 +1,7 @@
 /**
  * Class representing a Service End Event.
  *
- * @author David
+ * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventServiceEnd extends ShopEvent {

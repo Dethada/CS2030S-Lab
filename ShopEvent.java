@@ -3,7 +3,7 @@
  * new classes, following proper OOP principles.
  *
  * @author Wei Tsang
- * @author David
+ * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 abstract class ShopEvent extends Event {

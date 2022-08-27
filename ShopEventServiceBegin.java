@@ -1,7 +1,7 @@
 /**
  * Class representing a Service Begin Event.
  *
- * @author David
+ * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventServiceBegin extends ShopEvent {

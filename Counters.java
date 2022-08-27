@@ -2,7 +2,7 @@
  * The Counters class stores the state of all counters and handles operations related to the
  * counters.
  *
- * @author David
+ * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 class Counters {

@@ -10,7 +10,7 @@ class ShopSimulation extends Simulation {
   /**
    * The availability of counters in the shop.
    */
-  private boolean[] available;
+  private Counters counters;
 
   /**
    * The list of customer arrival events to populate
@@ -28,20 +28,16 @@ class ShopSimulation extends Simulation {
    *           pair represents a customer.
    */
   public ShopSimulation(Scanner sc) {
-    initEvents = new Event[sc.nextInt()];
+    this.initEvents = new Event[sc.nextInt()];
     int numOfCounters = sc.nextInt();
-
-    available = new boolean[numOfCounters];
-    for (int i = 0; i < numOfCounters; i++) {
-      available[i] = true;
-    }
+    this.counters = new Counters(numOfCounters);
 
     int id = 0;
     while (sc.hasNextDouble()) {
       double arrivalTime = sc.nextDouble();
       double serviceTime = sc.nextDouble();
       initEvents[id] = new ShopEventArrival(
-          arrivalTime, id, serviceTime, available);
+          arrivalTime, id, serviceTime, this.counters);
       id += 1;
     }
   }

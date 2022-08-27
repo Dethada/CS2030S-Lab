@@ -6,7 +6,7 @@
  */
 class ShopEventArrival extends ShopEvent {
   /** The service time of the customer associated this event. */
-  private double serviceTime;
+  private final double serviceTime;
 
   /**
    * Constructor for ShopEventArrival.

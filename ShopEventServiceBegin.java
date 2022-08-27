@@ -1,6 +1,7 @@
 /**
  * Class representing a Service Begin Event.
  *
+ * @author David
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
@@ -9,13 +10,13 @@ class ShopEventServiceBegin extends ShopEvent {
    * The service time of the customer associated this event. This field matters only if the event
    * type is ARRIVAL or SERVICE_BEGIN.
    */
-  private double serviceTime;
+  private final double serviceTime;
 
   /**
    * The id of the counter associated with this event. This field only matters if the event type if
    * SERVICE_BEGIN or SERVICE_END.
    */
-  private int counterId;
+  private final int counterId;
 
   /**
    * Constructor for ShopEventServiceBegin.

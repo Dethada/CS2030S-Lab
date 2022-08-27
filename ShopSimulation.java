@@ -9,10 +9,10 @@ import java.util.Scanner;
  */
 class ShopSimulation extends Simulation {
   /** The availability of counters in the shop. */
-  private Counters counters;
+  private final Counters counters;
 
   /** The list of customer arrival events to populate the simulation with. */
-  private Event[] initEvents;
+  private final Event[] initEvents;
 
   /**
    * Constructor for a shop simulation.

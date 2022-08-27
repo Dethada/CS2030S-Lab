@@ -9,7 +9,7 @@ class ShopEventServiceEnd extends ShopEvent {
    * The id of the counter associated with this event. This field only matters if the event type if
    * SERVICE_BEGIN or SERVICE_END.
    */
-  private int counterId;
+  private final int counterId;
 
   /**
    * Constructor for ShopEventServiceEnd.

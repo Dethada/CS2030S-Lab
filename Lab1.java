@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * The main class for CS2030S Lab 1.
  *
- * @author David
+ * @author Wei Tsang
  * @version CS2030S AY21/22 Semester 2
  */
 class Lab1 {

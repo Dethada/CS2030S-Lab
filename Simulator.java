@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
  * It runs through the events and simulates each one until
  * the queue is empty.
  *
- * @author David
+ * @author Wei Tsang
  * @version CS2030S AY21/22 Semester 2
  */
 public class Simulator {

@@ -14,3 +14,4 @@
     - [x] Counters class?
         - [x] get available counter
         - [x] function to mark counter as available/unavailable
+    - [ ] Customer class?

@@ -5,7 +5,7 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class Counters {
-  private boolean counters[];
+  private boolean[] counters;
 
   /** */
   public Counters(int n) {

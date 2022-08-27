@@ -9,7 +9,7 @@
  * the Comparable interface so that a PriorityQueue can
  * arrange the events in the order of event time.
  *
- * @author David
+ * @author Wei Tsang
  * @version CS2030S AY21/22 Semester 2
  */
 abstract class Event implements Comparable<Event> {

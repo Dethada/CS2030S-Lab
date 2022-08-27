@@ -3,8 +3,9 @@ import java.util.Scanner;
 /**
  * This class implements a shop simulation.
  *
+ * @author Wei Tsang
  * @author David
- * @version CS2030S AY21/22 Semester 2
+ * @version CS2030S AY22/23 Semester 1
  */
 class ShopSimulation extends Simulation {
   /**

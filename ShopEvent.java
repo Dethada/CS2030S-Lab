@@ -2,8 +2,9 @@
  * This class encapsulates an event in the shop simulation. Your task is to replace this class with
  * new classes, following proper OOP principles.
  *
+ * @author Wei Tsang
  * @author David
- * @version CS2030S AY21/22 Semester 2
+ * @version CS2030S AY22/23 Semester 1
  */
 abstract class ShopEvent extends Event {
   /**

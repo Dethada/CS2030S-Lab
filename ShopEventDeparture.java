@@ -1,18 +1,25 @@
 /**
- * TODO
+ * Class representing a Departure Event.
  *
  * @author David
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventDeparture extends ShopEvent {
+
+  /**
+   * Constructor for ShopEventDeparture.
+   *
+   * @param time The time this event occurs.
+   * @param customerId The customer associated with this event.
+   */
   public ShopEventDeparture(double time, int customerId) {
     super(time, customerId);
   }
 
   /**
-   * Returns the string representation of the event, depending on the type of event.
+   * Returns the string representation of this departure event.
    *
-   * @return A string representing the event.
+   * @return A string representing this departure event.
    */
   @Override
   public String toString() {
@@ -20,9 +27,9 @@ class ShopEventDeparture extends ShopEvent {
   }
 
   /**
-   * The logic that the simulation should follow when simulating this event.
+   * Simulate the departure event.
    *
-   * @return An array of new events to be simulated.
+   * @return Empty Events array.
    */
   @Override
   public Event[] simulate() {

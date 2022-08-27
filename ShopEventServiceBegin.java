@@ -1,5 +1,5 @@
 /**
- * TODO
+ * Class representing a Service Begin Event.
  *
  * @author David
  * @version CS2030S AY22/23 Semester 1
@@ -17,6 +17,15 @@ class ShopEventServiceBegin extends ShopEvent {
    */
   private int counterId;
 
+  /**
+   * Constructor for ShopEventServiceBegin.
+   *
+   * @param time The time this event occurs.
+   * @param customerId The customer associated with this event.
+   * @param serviceTime The time this customer takes for service.
+   * @param counterId The id of the counter associated with this event.
+   * @param counters The state of all counters.
+   */
   public ShopEventServiceBegin(
       double time, int customerId, double serviceTime, int counterId, Counters counters) {
     super(time, customerId, counters);
@@ -24,6 +33,11 @@ class ShopEventServiceBegin extends ShopEvent {
     this.counterId = counterId;
   }
 
+  /**
+   * Returns the string representation of this service begin event.
+   *
+   * @return A string representing this service begin event.
+   */
   @Override
   public String toString() {
     return super.toString()
@@ -31,6 +45,11 @@ class ShopEventServiceBegin extends ShopEvent {
             ": Customer %d service begin (by Counter %d)", this.getCustomerID(), this.counterId);
   }
 
+  /**
+   * Simulate the Service Begin Event.
+   *
+   * @return Event Array containing the service end event.
+   */
   @Override
   public Event[] simulate() {
     // The current event is a service-begin event.

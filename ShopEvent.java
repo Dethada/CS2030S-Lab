@@ -12,11 +12,7 @@ abstract class ShopEvent extends Event {
    */
   private final int customerId;
 
-  /**
-   * An array to indicate if a service counter is available. available[i] is true if and only if
-   * service counter i is available to serve.
-   */
-  // public boolean[] available;
+  /** The availability of counters in the shop. */
   private Counters counters;
 
   /**
@@ -24,7 +20,7 @@ abstract class ShopEvent extends Event {
    *
    * @param time The time this event occurs.
    * @param customerId The customer associated with this event.
-   * @param counters The id of the counter associated with this event.
+   * @param counters The state of all counters.
    */
   public ShopEvent(double time, int customerId, Counters counters) {
     this(time, customerId);

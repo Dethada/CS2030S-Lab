@@ -1,5 +1,5 @@
 /**
- * TODO
+ * Class representing a Service Arrival Event.
  *
  * @author David
  * @version CS2030S AY22/23 Semester 1
@@ -8,16 +8,34 @@ class ShopEventArrival extends ShopEvent {
   /** The service time of the customer associated this event. */
   private double serviceTime;
 
+  /**
+   * Constructor for ShopEventArrival.
+   *
+   * @param time The time this event occurs.
+   * @param customerId The customer associated with this event.
+   * @param serviceTime The time this customer takes for service.
+   * @param counters The state of all counters.
+   */
   public ShopEventArrival(double time, int customerId, double serviceTime, Counters counter) {
     super(time, customerId, counter);
     this.serviceTime = serviceTime;
   }
 
+  /**
+   * Returns the string representation of this service arrival event.
+   *
+   * @return A string representing this service arrival event.
+   */
   @Override
   public String toString() {
     return super.toString() + String.format(": Customer %d arrives", this.getCustomerID());
   }
 
+  /**
+   * Simulate the Service Arrival Event.
+   *
+   * @return Event Array containing the service begin event or departure event.
+   */
   @Override
   public Event[] simulate() {
     int counter = super.getCounters().useCounter();

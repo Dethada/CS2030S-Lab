@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * Class representing a Service Begin Event.
  *
@@ -7,16 +9,10 @@
  */
 class ShopEventServiceBegin extends ShopEvent {
   /**
-   * The service time of the customer associated this event. This field matters only if the event
-   * type is ARRIVAL or SERVICE_BEGIN.
-   */
-  private final double serviceTime;
-
-  /**
    * The id of the counter associated with this event. This field only matters if the event type if
    * SERVICE_BEGIN or SERVICE_END.
    */
-  private final int counterId;
+  private final Counter counter;
 
   /**
    * Constructor for ShopEventServiceBegin.
@@ -27,11 +23,9 @@ class ShopEventServiceBegin extends ShopEvent {
    * @param counterId The id of the counter associated with this event.
    * @param counters The state of all counters.
    */
-  public ShopEventServiceBegin(
-      double time, int customerId, double serviceTime, int counterId, Counters counters) {
-    super(time, customerId, counters);
-    this.serviceTime = serviceTime;
-    this.counterId = counterId;
+  public ShopEventServiceBegin(double time, Customer customer, Counter[] counters, Queue queue) {
+    super(time, customer, counters, queue);
+    this.counter = this.useCounter().get();
   }
 
   /**
@@ -43,7 +37,7 @@ class ShopEventServiceBegin extends ShopEvent {
   public String toString() {
     return super.toString()
         + String.format(
-            ": Customer %d service begin (by Counter %d)", this.getCustomerID(), this.counterId);
+            ": %s service begin (by %s)", this.getCustomer().toString(), this.counter.toString());
   }
 
   /**
@@ -57,9 +51,13 @@ class ShopEventServiceBegin extends ShopEvent {
     // Mark the counter is unavailable, then schedule
     // a service-end event at the current time + service time.
     // this.available[this.counterId] = false;
-    double endTime = this.getTime() + this.serviceTime;
+    // System.out.println(Arrays.toString(this.getCounters()));
+    double endTime =
+        this.getTime() + this.getCustomer().getServiceTime(); // extract this out to the
+    // ShopEvent class?
     return new Event[] {
-      new ShopEventServiceEnd(endTime, this.getCustomerID(), this.counterId, super.getCounters())
+      new ShopEventServiceEnd(
+          endTime, this.getCustomer(), this.counter, super.getCounters(), this.getQueue())
     };
   }
 }

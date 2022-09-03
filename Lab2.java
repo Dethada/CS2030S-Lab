@@ -12,8 +12,8 @@ class Lab2 {
     // Create a scanner to read from standard input.
     Scanner sc = new Scanner(System.in);
 
-    // Create a simulation.  The ShopSimulation 
-    // constructor will read the simulation parameters 
+    // Create a simulation.  The ShopSimulation
+    // constructor will read the simulation parameters
     // and initial events using the scanner.
     Simulation simulation = new ShopSimulation(sc);
 

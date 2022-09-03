@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * Class representing a Service End Event.
  *
@@ -9,7 +11,7 @@ class ShopEventServiceEnd extends ShopEvent {
    * The id of the counter associated with this event. This field only matters if the event type if
    * SERVICE_BEGIN or SERVICE_END.
    */
-  private final int counterId;
+  private final Counter counter;
 
   /**
    * Constructor for ShopEventServiceEnd.
@@ -19,9 +21,10 @@ class ShopEventServiceEnd extends ShopEvent {
    * @param counterId The id of the counter associated with this event.
    * @param counters The state of all counters.
    */
-  public ShopEventServiceEnd(double time, int customerId, int counterId, Counters counters) {
-    super(time, customerId, counters);
-    this.counterId = counterId;
+  public ShopEventServiceEnd(
+      double time, Customer customer, Counter counter, Counter[] counters, Queue queue) {
+    super(time, customer, counters, queue);
+    this.counter = counter;
   }
 
   /**
@@ -33,7 +36,7 @@ class ShopEventServiceEnd extends ShopEvent {
   public String toString() {
     return super.toString()
         + String.format(
-            ": Customer %d service done (by Counter %d)", this.getCustomerID(), this.counterId);
+            ": %s service done (by %s)", this.getCustomer().toString(), this.counter.toString());
   }
 
   /**
@@ -47,9 +50,11 @@ class ShopEventServiceEnd extends ShopEvent {
     // Mark the counter is available, then schedule
     // a departure event at the current time.
     // this.available[this.counterId] = true;
-    super.getCounters().freeCounter(this.counterId);
+    this.freeCounter(this.counter);
+    // System.out.println(Arrays.toString(this.getCounters()));
     return new Event[] {
-      new ShopEventDeparture(this.getTime(), this.getCustomerID()),
+      new ShopEventDeparture(
+          this.getTime(), this.getCustomer(), this.getCounters(), this.getQueue()),
     };
   }
 }

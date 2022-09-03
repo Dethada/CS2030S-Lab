@@ -22,8 +22,8 @@ class ShopEventServiceEnd extends ShopEvent {
    * @param counters The state of all counters.
    */
   public ShopEventServiceEnd(
-      double time, Customer customer, Counter counter, Counter[] counters, Queue queue) {
-    super(time, customer, counters, queue);
+      double time, Customer customer, Counter counter, Shop shop, Queue queue) {
+    super(time, customer, shop, queue);
     this.counter = counter;
   }
 
@@ -50,11 +50,10 @@ class ShopEventServiceEnd extends ShopEvent {
     // Mark the counter is available, then schedule
     // a departure event at the current time.
     // this.available[this.counterId] = true;
-    this.freeCounter(this.counter);
+    this.counter.setAvailable();
     // System.out.println(Arrays.toString(this.getCounters()));
     return new Event[] {
-      new ShopEventDeparture(
-          this.getTime(), this.getCustomer(), this.getCounters(), this.getQueue()),
+      new ShopEventDeparture(this.getTime(), this.getCustomer(), this.getShop(), this.getQueue()),
     };
   }
 }

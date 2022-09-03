@@ -13,8 +13,8 @@ class ShopEventArrival extends ShopEvent {
    * @param serviceTime The time this customer takes for service.
    * @param counters The state of all counters.
    */
-  public ShopEventArrival(double time, Customer customer, Counter[] counters, Queue queue) {
-    super(time, customer, counters, queue);
+  public ShopEventArrival(double time, Customer customer, Shop shop, Queue queue) {
+    super(time, customer, shop, queue);
   }
 
   /**
@@ -37,14 +37,12 @@ class ShopEventArrival extends ShopEvent {
   @Override
   public Event[] simulate() {
     // System.out.println(Arrays.toString(this.getCounters()));
-    boolean hasCounter = this.hasAvailableCounter();
-    String originalQueue = this.getQueue().toString();
+    boolean hasCounter = this.getShop().hasAvailableCounter();
     if (!hasCounter) {
       // If no such counter can be found, the customer should try to join the queue
-      if (this.getQueue().enq(this.getCustomer())) {
-        return new Event[] {
-          new ShopEventJoinQueue(this.getTime(), this.getCustomer(), originalQueue)
-        };
+      Queue queue = this.getQueue();
+      if (!queue.isFull()) {
+        return new Event[] {new ShopEventJoinQueue(this.getTime(), this.getCustomer(), queue)};
       } else {
         return new Event[] {new ShopEventDirectDeparture(this.getTime(), this.getCustomer())};
       }
@@ -53,7 +51,7 @@ class ShopEventArrival extends ShopEvent {
       // available counter and get served.
       return new Event[] {
         new ShopEventServiceBegin(
-            this.getTime(), this.getCustomer(), this.getCounters(), this.getQueue())
+            this.getTime(), this.getCustomer(), this.getShop(), this.getQueue())
       };
     }
   }

@@ -22,7 +22,7 @@ class ShopSimulation extends Simulation {
     this.initEvents = new Event[sc.nextInt()];
     int numOfCounters = sc.nextInt();
     int queueLength = sc.nextInt();
-    Counter[] counters = createCounters(numOfCounters);
+    Shop shop = new Shop(numOfCounters);
     Queue queue = new Queue(queueLength);
 
     int id = 0;
@@ -30,17 +30,9 @@ class ShopSimulation extends Simulation {
       double arrivalTime = sc.nextDouble();
       double serviceTime = sc.nextDouble();
       Customer customer = new Customer(id, serviceTime);
-      initEvents[id] = new ShopEventArrival(arrivalTime, customer, counters, queue);
+      initEvents[id] = new ShopEventArrival(arrivalTime, customer, shop, queue);
       id += 1;
     }
-  }
-
-  private Counter[] createCounters(int numOfCounters) {
-    Counter[] counters = new Counter[numOfCounters];
-    for (int i = 0; i < numOfCounters; i++) {
-      counters[i] = new Counter(i);
-    }
-    return counters;
   }
 
   /**

@@ -23,9 +23,9 @@ class ShopEventServiceBegin extends ShopEvent {
    * @param counterId The id of the counter associated with this event.
    * @param counters The state of all counters.
    */
-  public ShopEventServiceBegin(double time, Customer customer, Counter[] counters, Queue queue) {
-    super(time, customer, counters, queue);
-    this.counter = this.useCounter().get();
+  public ShopEventServiceBegin(double time, Customer customer, Shop shop, Queue queue) {
+    super(time, customer, shop, queue);
+    this.counter = this.getShop().useCounter().get();
   }
 
   /**
@@ -52,12 +52,10 @@ class ShopEventServiceBegin extends ShopEvent {
     // a service-end event at the current time + service time.
     // this.available[this.counterId] = false;
     // System.out.println(Arrays.toString(this.getCounters()));
-    double endTime =
-        this.getTime() + this.getCustomer().getServiceTime(); // extract this out to the
-    // ShopEvent class?
+    double endTime = this.getTime() + this.getCustomer().getServiceTime();
     return new Event[] {
       new ShopEventServiceEnd(
-          endTime, this.getCustomer(), this.counter, super.getCounters(), this.getQueue())
+          endTime, this.getCustomer(), this.counter, this.getShop(), this.getQueue())
     };
   }
 }

@@ -5,8 +5,6 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventJoinQueue extends ShopEvent {
-
-  private final String originalQueue;
   /**
    * Constructor for ShopEventArrival.
    *
@@ -15,9 +13,8 @@ class ShopEventJoinQueue extends ShopEvent {
    * @param serviceTime The time this customer takes for service.
    * @param counters The state of all counters.
    */
-  public ShopEventJoinQueue(double time, Customer customer, String originalQueue) {
-    super(time, customer);
-    this.originalQueue = originalQueue;
+  public ShopEventJoinQueue(double time, Customer customer, Queue queue) {
+    super(time, customer, queue);
   }
 
   /**
@@ -28,16 +25,13 @@ class ShopEventJoinQueue extends ShopEvent {
   @Override
   public String toString() {
     return super.toString()
-        + String.format(": %s joined queue %s", this.getCustomer().toString(), this.originalQueue);
+        + String.format(
+            ": %s joined queue %s", this.getCustomer().toString(), this.getQueue().toString());
   }
 
-  /**
-   * Simulate the Service Arrival Event.
-   *
-   * @return Event Array containing the service begin event or departure event.
-   */
   @Override
   public Event[] simulate() {
+    this.getQueue().enq(this.getCustomer());
     return new Event[] {};
   }
 }

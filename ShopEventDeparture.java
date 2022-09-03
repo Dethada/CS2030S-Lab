@@ -11,8 +11,8 @@ class ShopEventDeparture extends ShopEvent {
    * @param time The time this event occurs.
    * @param customerId The customer associated with this event.
    */
-  public ShopEventDeparture(double time, Customer customer, Counter[] counters, Queue queue) {
-    super(time, customer, counters, queue);
+  public ShopEventDeparture(double time, Customer customer, Shop shop, Queue queue) {
+    super(time, customer, shop, queue);
   }
 
   /**
@@ -32,14 +32,12 @@ class ShopEventDeparture extends ShopEvent {
    */
   @Override
   public Event[] simulate() {
-    boolean hasCounter = this.hasAvailableCounter();
-    if (hasCounter) {
+    if (this.getShop().hasAvailableCounter()) {
       Customer next_customer = (Customer) this.getQueue().deq();
       if (next_customer != null) {
         // System.out.printf("%s got deqed\n", next_customer.toString());
         return new Event[] {
-          new ShopEventServiceBegin(
-              this.getTime(), next_customer, this.getCounters(), this.getQueue())
+          new ShopEventServiceBegin(this.getTime(), next_customer, this.getShop(), this.getQueue())
         };
       }
     }

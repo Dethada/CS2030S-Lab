@@ -26,7 +26,7 @@ class ShopEventDirectDeparture extends ShopEvent {
   }
 
   /**
-   * Simulate the departure event.
+   * Simulate the a direct departure event.
    *
    * @return Empty Events array.
    */

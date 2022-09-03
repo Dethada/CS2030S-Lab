@@ -1,27 +1,40 @@
 /**
- * This class encapsulates an event in the shop simulation. Your task is to replace this class with
- * new classes, following proper OOP principles.
+ * This class encapsulates an event in the shop simulation.
  *
  * @author Wei Tsang
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 abstract class ShopEvent extends Event {
-  /**
-   * The id of a customer associated with this event. First customer has id 0. Next is 1, 2, etc.
-   */
+  /** The customer associated with this event. */
   private final Customer customer;
 
   /** The availability of counters in the shop. */
   private Shop shop;
 
+  /** The queue for the cutomers. */
   private Queue queue;
 
+  /**
+   * Constructor for a shop event.
+   *
+   * @param time The time this event occurs.
+   * @param customer The customer associated with this event.
+   * @param shop The shop containing all the counters.
+   * @param queue The queue for the customers.
+   */
   public ShopEvent(double time, Customer customer, Shop shop, Queue queue) {
     this(time, customer, shop);
     this.queue = queue;
   }
 
+  /**
+   * Constructor for a shop event.
+   *
+   * @param time The time this event occurs.
+   * @param customer The customer associated with this event.
+   * @param queue The queue for the customers.
+   */
   public ShopEvent(double time, Customer customer, Queue queue) {
     this(time, customer);
     this.queue = queue;
@@ -32,7 +45,7 @@ abstract class ShopEvent extends Event {
    *
    * @param time The time this event occurs.
    * @param customer The customer associated with this event.
-   * @param counters The array of Counters.
+   * @param shop The shop containing all the counters.
    */
   public ShopEvent(double time, Customer customer, Shop shop) {
     this(time, customer);
@@ -50,14 +63,17 @@ abstract class ShopEvent extends Event {
     this.customer = customer;
   }
 
+  /** {@return The Shop of this event.} */
   public Shop getShop() {
     return this.shop;
   }
 
+  /** {@return The Queue of this event.} */
   public Queue getQueue() {
     return this.queue;
   }
 
+  /** {@return The Customer of this event.} */
   public Customer getCustomer() {
     return this.customer;
   }

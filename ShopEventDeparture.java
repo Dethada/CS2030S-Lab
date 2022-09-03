@@ -9,7 +9,9 @@ class ShopEventDeparture extends ShopEvent {
    * Constructor for ShopEventDeparture.
    *
    * @param time The time this event occurs.
-   * @param customerId The customer associated with this event.
+   * @param customer The customer associated with this event.
+   * @param shop The shop containing all the counters.
+   * @param queue The queue for the customers.
    */
   public ShopEventDeparture(double time, Customer customer, Shop shop, Queue queue) {
     super(time, customer, shop, queue);

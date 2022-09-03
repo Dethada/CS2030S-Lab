@@ -1,15 +1,12 @@
-import java.util.*;
-
 /**
  * Class representing a Service Begin Event.
  *
- * @author David
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventServiceBegin extends ShopEvent {
   /**
-   * The id of the counter associated with this event. This field only matters if the event type if
+   * The counter associated with this event. This field only matters if the event type if
    * SERVICE_BEGIN or SERVICE_END.
    */
   private final Counter counter;
@@ -18,10 +15,9 @@ class ShopEventServiceBegin extends ShopEvent {
    * Constructor for ShopEventServiceBegin.
    *
    * @param time The time this event occurs.
-   * @param customerId The customer associated with this event.
-   * @param serviceTime The time this customer takes for service.
-   * @param counterId The id of the counter associated with this event.
-   * @param counters The state of all counters.
+   * @param customer The customer associated with this event.
+   * @param shop The shop containing all the counters.
+   * @param queue The queue for the customers.
    */
   public ShopEventServiceBegin(double time, Customer customer, Shop shop, Queue queue) {
     super(time, customer, shop, queue);
@@ -50,8 +46,6 @@ class ShopEventServiceBegin extends ShopEvent {
     // The current event is a service-begin event.
     // Mark the counter is unavailable, then schedule
     // a service-end event at the current time + service time.
-    // this.available[this.counterId] = false;
-    // System.out.println(Arrays.toString(this.getCounters()));
     double endTime = this.getTime() + this.getCustomer().getServiceTime();
     return new Event[] {
       new ShopEventServiceEnd(

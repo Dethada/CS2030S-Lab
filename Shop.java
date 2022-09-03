@@ -1,16 +1,20 @@
 import java.util.Optional;
 
 /**
- * This class encapsulates an event in the shop simulation. Your task is to replace this class with
- * new classes, following proper OOP principles.
+ * This class represents a shop, containing all the counters.
  *
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 class Shop {
-  /** The availability of counters in the shop. */
+  /** The counters in the shop. */
   private Counter[] counters;
 
+  /**
+   * Constructor for Shop.
+   *
+   * @param numCounters The number of counters in the shop.
+   */
   public Shop(int numCounters) {
     Counter[] counters = new Counter[numCounters];
     for (int i = 0; i < numCounters; i++) {
@@ -20,15 +24,11 @@ class Shop {
   }
 
   /**
-   * Constructor for a shop event.
+   * Get a counter based on the index (Id) of the counter.
    *
-   * @param time The time this event occurs.
-   * @param customer The customer associated with this event.
+   * @param i The index of the counter.
+   * @return The counter at index i.
    */
-  public Shop(Counter[] counters) {
-    this.counters = counters;
-  }
-
   public Counter getCounter(int i) {
     return this.counters[i];
   }
@@ -36,7 +36,7 @@ class Shop {
   /**
    * Get an available counter and set it to be unavailable.
    *
-   * @return The Counter ID of an available counter or -1 if there is no available counter.
+   * @return An available Counter that was just set to unavailable or null.
    */
   public Optional<Counter> useCounter() {
     Optional<Counter> c = this.getAvailableCounter();
@@ -49,7 +49,7 @@ class Shop {
   /**
    * Get an available counter.
    *
-   * @return The Counter ID of an available counter or -1 if there is no available counter.
+   * @return An available Counter or null.
    */
   private Optional<Counter> getAvailableCounter() {
     for (int i = 0; i < this.counters.length; i++) {
@@ -60,6 +60,11 @@ class Shop {
     return Optional.ofNullable(null);
   }
 
+  /**
+   * Check if there is a available counter in the shop.
+   *
+   * @return true if there is a available counter, false if there is no available counter.
+   */
   public boolean hasAvailableCounter() {
     for (int i = 0; i < this.counters.length; i++) {
       if (this.counters[i].isAvailable()) {

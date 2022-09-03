@@ -15,8 +15,8 @@ class ShopSimulation extends Simulation {
    * Constructor for a shop simulation.
    *
    * @param sc A scanner to read the parameters from. The first integer scanned is the number of
-   *     customers; followed by the number of service counters. Next is a sequence of (arrival time,
-   *     service time) pair, each pair represents a customer.
+   *     customers; followed by the number of service counters and queue length. Next is a sequence
+   *     of (arrival time, service time) pair, each pair represents a customer.
    */
   public ShopSimulation(Scanner sc) {
     this.initEvents = new Event[sc.nextInt()];

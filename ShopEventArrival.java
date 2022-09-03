@@ -9,9 +9,9 @@ class ShopEventArrival extends ShopEvent {
    * Constructor for ShopEventArrival.
    *
    * @param time The time this event occurs.
-   * @param customerId The customer associated with this event.
-   * @param serviceTime The time this customer takes for service.
-   * @param counters The state of all counters.
+   * @param customer The customer associated with this event.
+   * @param shop The shop containing all the counters.
+   * @param queue The queue for the customers.
    */
   public ShopEventArrival(double time, Customer customer, Shop shop, Queue queue) {
     super(time, customer, shop, queue);
@@ -36,7 +36,6 @@ class ShopEventArrival extends ShopEvent {
    */
   @Override
   public Event[] simulate() {
-    // System.out.println(Arrays.toString(this.getCounters()));
     boolean hasCounter = this.getShop().hasAvailableCounter();
     if (!hasCounter) {
       // If no such counter can be found, the customer should try to join the queue

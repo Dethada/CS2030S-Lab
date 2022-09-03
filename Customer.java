@@ -5,7 +5,7 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class Customer {
-  /** The service time of the customer associated this event. */
+  /** The Id of this customer. */
   private final int id;
 
   /** The service time of the customer associated this event. */
@@ -15,22 +15,20 @@ class Customer {
    * Constructor for Customer.
    *
    * @param id The customer's ID.
+   * @param serviceTime The customer's service time.
    */
   public Customer(int id, double serviceTime) {
     this.id = id;
     this.serviceTime = serviceTime;
   }
 
-  /**
-   * Returns the string representation of this service arrival event.
-   *
-   * @return A string representing this service arrival event.
-   */
+  /** {@return A string representing this service arrival event.} */
   @Override
   public String toString() {
     return "C" + this.id;
   }
 
+  /** {@return This Customer's service time.} */
   public double getServiceTime() {
     return this.serviceTime;
   }

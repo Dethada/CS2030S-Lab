@@ -1,15 +1,15 @@
 /**
- * Class representing a Departure Event.
+ * Class representing a Direct Departure Event.
  *
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventDirectDeparture extends ShopEvent {
   /**
-   * Constructor for ShopEventDeparture.
+   * Constructor for ShopEventDirectDeparture.
    *
    * @param time The time this event occurs.
-   * @param customerId The customer associated with this event.
+   * @param customer The customer associated with this event.
    */
   public ShopEventDirectDeparture(double time, Customer customer) {
     super(time, customer);

@@ -54,7 +54,11 @@ class Counter {
     return this.available;
   }
 
-  /** {@return the Id of this Counter} */
+  /**
+   * Return the Id of this Counter.
+   *
+   * @return the Id of this Counter.
+   */
   public int getId() {
     return this.id;
   }

@@ -40,10 +40,10 @@ do
 			echo "$PROG: return non-zero status $status for test case $i"
 			# cat inputs/$PROG.$i.in
 			num_failed=$((num_failed + 1))
-		else 
-			if [ -e $out ] 
+		else
+			if [ -e $out ]
 			then
-				if [ `diff -bB $out outputs/$PROG.$i.out | wc -l` -ne 0 ] 
+				if [ `diff -bB $out outputs/$PROG.$i.out | wc -l` -ne 0 ]
 				then
 					echo "test $i: failed"
 					#cat inputs/$PROG.$i.in
@@ -63,11 +63,14 @@ do
 	fi
 done
 
-if [ $i -eq 1 ] 
+if [ $i -eq 1 ]
 then
 	echo "$PROG: no test cases found 🤷"
-elif [ $num_failed -eq 0 ] 
+elif [ $num_failed -eq 0 ]
 then
 	echo "$PROG: passed everything 🎉"
 fi
+
+# Run style checker
+checkstyle -c cs2030_checks.xml *.java
 # vim:noexpandtab:sw=4:ts=4

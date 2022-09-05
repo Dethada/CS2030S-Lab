@@ -22,13 +22,21 @@ class Customer {
     this.serviceTime = serviceTime;
   }
 
-  /** {@return A string representing this service arrival event.} */
+  /**
+   * Return a string representing this service arrival event.
+   *
+   * @return A string representing this service arrival event.
+   */
   @Override
   public String toString() {
     return "C" + this.id;
   }
 
-  /** {@return This Customer's service time.} */
+  /**
+   * Return this Customer's service time.
+   *
+   * @return This Customer's service time.
+   */
   public double getServiceTime() {
     return this.serviceTime;
   }

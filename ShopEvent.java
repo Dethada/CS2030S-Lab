@@ -63,17 +63,29 @@ abstract class ShopEvent extends Event {
     this.customer = customer;
   }
 
-  /** {@return The Shop of this event.} */
+  /**
+   * Return the Shop of this event.
+   *
+   * @return The Shop of this event.
+   */
   public Shop getShop() {
     return this.shop;
   }
 
-  /** {@return The Queue of this event.} */
+  /**
+   * Return the queue of this event.
+   *
+   * @return The Queue of this event.
+   */
   public Queue getQueue() {
     return this.queue;
   }
 
-  /** {@return The Customer of this event.} */
+  /**
+   * Return the customer of this event.
+   *
+   * @return The Customer of this event.
+   */
   public Customer getCustomer() {
     return this.customer;
   }

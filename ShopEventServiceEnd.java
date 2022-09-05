@@ -16,6 +16,7 @@ class ShopEventServiceEnd extends ShopEvent {
    *
    * @param time The time this event occurs.
    * @param customer The customer associated with this event.
+   * @param counter The counter serving the customer.
    * @param shop The shop containing all the counters.
    * @param queue The queue for the customers.
    */

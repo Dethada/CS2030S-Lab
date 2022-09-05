@@ -35,11 +35,10 @@ class ShopEventDeparture extends ShopEvent {
   @Override
   public Event[] simulate() {
     if (this.getShop().hasAvailableCounter()) {
-      Customer next_customer = (Customer) this.getQueue().deq();
-      if (next_customer != null) {
-        // System.out.printf("%s got deqed\n", next_customer.toString());
+      Customer nextCustomer = (Customer) this.getQueue().deq();
+      if (nextCustomer != null) {
         return new Event[] {
-          new ShopEventServiceBegin(this.getTime(), next_customer, this.getShop(), this.getQueue())
+          new ShopEventServiceBegin(this.getTime(), nextCustomer, this.getShop(), this.getQueue())
         };
       }
     }

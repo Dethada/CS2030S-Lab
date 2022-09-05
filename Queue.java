@@ -100,9 +100,9 @@ class Queue {
 
   /**
    * Returns the string representation of the queue.
-   * 
-   * @return A string consisting of the string representation of 
-   * every object in the queue.
+   *
+   * @return A string consisting of the string representation of
+   *         every object in the queue.
    */
   @Override
   public String toString() {
@@ -113,7 +113,7 @@ class Queue {
       str += this.items[i] + " ";
       i = (i + 1) % this.maxSize;
       count++;
-    } 
+    }
     return str + "]";
   }
 }

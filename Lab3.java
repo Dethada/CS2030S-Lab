@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 /**
- * The main class for CS2030S Lab 1.
+ * The main class for CS2030S Lab 3.
  *
  * @author Wei Tsang
- * @version CS2030S AY20/21 Semester 2
+ * @version CS2030S AY21/22 Semester 2
  */
-class Lab2 {
+class Lab3 {
   public static void main(String[] args) {
 
     // Create a scanner to read from standard input.

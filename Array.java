@@ -1,27 +1,42 @@
 /**
- * The Array<T> for CS2030S 
+ * The Array<T> for CS2030S
  *
- * @author XXX
+ * @author David
  * @version CS2030S AY21/22 Semester 2
  */
-class Array<T> { // TODO: Change to bounded type parameter
-  private T[] array;
+class Array<T extends Comparable<T>> {
+  private final T[] array;
+
+  private final int length;
 
   Array(int size) {
-    // TODO
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    final T[] tmp = (T[]) new Comparable[size];
+    this.array = tmp;
+    this.length = size;
   }
 
   public void set(int index, T item) {
-    // TODO
+    this.array[index] = item;
   }
 
   public T get(int index) {
-    // TODO
+    return array[index];
   }
 
   public T min() {
-    // TODO
+    T min = this.array[0];
+    for (int i = 1; i < this.array.length; i++) {
+        if (min.compareTo(this.array[i]) > 0) {
+            min = this.array[i];
+        }
+    }
+    return min;
   }
+
+  public int length() {
+        return this.length;
+    }
 
   @Override
   public String toString() {

@@ -4,7 +4,11 @@
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
-class ShopEventDeparture extends ShopEvent {
+class ShopEventDeparture extends Event {
+  private final Customer customer;
+  private final Shop shop;
+  private final Counter counter;
+
   /**
    * Constructor for ShopEventDeparture.
    *
@@ -13,8 +17,11 @@ class ShopEventDeparture extends ShopEvent {
    * @param shop The shop containing all the counters.
    * @param queue The queue for the customers.
    */
-  public ShopEventDeparture(double time, Customer customer, Shop shop, Queue queue) {
-    super(time, customer, shop, queue);
+  public ShopEventDeparture(double time, Customer customer, Shop shop, Counter counter) {
+    super(time);
+    this.customer = customer;
+    this.shop = shop;
+    this.counter = counter;
   }
 
   /**
@@ -24,7 +31,7 @@ class ShopEventDeparture extends ShopEvent {
    */
   @Override
   public String toString() {
-    return super.toString() + String.format(": %s departed", this.getCustomer().toString());
+    return super.toString() + String.format(": %s departed", this.customer.toString());
   }
 
   /**
@@ -34,11 +41,27 @@ class ShopEventDeparture extends ShopEvent {
    */
   @Override
   public Event[] simulate() {
-    if (this.getShop().hasAvailableCounter()) {
-      Customer nextCustomer = (Customer) this.getQueue().deq();
+    if (this.counter != null) {
+      Customer nextCustomer = this.counter.deQueue();
+      if (nextCustomer != null) {
+        // poll for customer in entrance queue transfer them to the counter queue
+        Customer entranceCustomer = this.shop.deQueueEntrance();
+        if (entranceCustomer != null) {
+          Event[] events = new Event[2];
+          events[0] = new ShopEventCounterJoinQueue(this.getTime(), entranceCustomer, this.counter);
+          events[1] =
+              new ShopEventServiceBegin(this.getTime(), nextCustomer, this.shop, this.counter);
+          return events;
+        }
+        return new Event[] {
+          new ShopEventServiceBegin(this.getTime(), nextCustomer, this.shop, this.counter)
+        };
+      }
+      // poll entrance queue
+      nextCustomer = this.shop.deQueueEntrance();
       if (nextCustomer != null) {
         return new Event[] {
-          new ShopEventServiceBegin(this.getTime(), nextCustomer, this.getShop(), this.getQueue())
+          new ShopEventServiceBegin(this.getTime(), nextCustomer, this.shop, this.counter)
         };
       }
     }

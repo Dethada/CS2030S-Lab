@@ -4,12 +4,15 @@
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
-class ShopEventServiceEnd extends ShopEvent {
+class ShopEventServiceEnd extends Event {
   /**
    * The counter associated with this event. This field only matters if the event type if
    * SERVICE_BEGIN or SERVICE_END.
    */
   private final Counter counter;
+
+  private final Customer customer;
+  private final Shop shop;
 
   /**
    * Constructor for ShopEventServiceEnd.
@@ -18,12 +21,12 @@ class ShopEventServiceEnd extends ShopEvent {
    * @param customer The customer associated with this event.
    * @param counter The counter serving the customer.
    * @param shop The shop containing all the counters.
-   * @param queue The queue for the customers.
    */
-  public ShopEventServiceEnd(
-      double time, Customer customer, Counter counter, Shop shop, Queue queue) {
-    super(time, customer, shop, queue);
+  public ShopEventServiceEnd(double time, Customer customer, Counter counter, Shop shop) {
+    super(time);
     this.counter = counter;
+    this.customer = customer;
+    this.shop = shop;
   }
 
   /**
@@ -35,7 +38,7 @@ class ShopEventServiceEnd extends ShopEvent {
   public String toString() {
     return super.toString()
         + String.format(
-            ": %s service done (by %s)", this.getCustomer().toString(), this.counter.toString());
+            ": %s service done (by %s)", this.customer.toString(), this.counter.toString());
   }
 
   /**
@@ -48,9 +51,9 @@ class ShopEventServiceEnd extends ShopEvent {
     // The current event is a service-end event.
     // Mark the counter is available, then schedule
     // a departure event at the current time.
-    this.counter.setAvailable();
+    this.counter.finishService();
     return new Event[] {
-      new ShopEventDeparture(this.getTime(), this.getCustomer(), this.getShop(), this.getQueue()),
+      new ShopEventDeparture(this.getTime(), this.customer, this.shop, this.counter),
     };
   }
 }

@@ -4,7 +4,10 @@
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
-class ShopEventArrival extends ShopEvent {
+class ShopEventArrival extends Event {
+  private final Customer customer;
+
+  private final Shop shop;
   /**
    * Constructor for ShopEventArrival.
    *
@@ -13,8 +16,10 @@ class ShopEventArrival extends ShopEvent {
    * @param shop The shop containing all the counters.
    * @param queue The queue for the customers.
    */
-  public ShopEventArrival(double time, Customer customer, Shop shop, Queue queue) {
-    super(time, customer, shop, queue);
+  public ShopEventArrival(double time, Customer customer, Shop shop) {
+    super(time);
+    this.customer = customer;
+    this.shop = shop;
   }
 
   /**
@@ -26,7 +31,7 @@ class ShopEventArrival extends ShopEvent {
   public String toString() {
     return super.toString()
         + String.format(
-            ": %s arrived %s", this.getCustomer().toString(), this.getQueue().toString());
+            ": %s arrived %s", this.customer.toString(), this.shop.getEntranceQueue().toString());
   }
 
   /**
@@ -36,22 +41,24 @@ class ShopEventArrival extends ShopEvent {
    */
   @Override
   public Event[] simulate() {
-    boolean hasCounter = this.getShop().hasAvailableCounter();
-    if (!hasCounter) {
-      // If no such counter can be found, the customer should try to join the queue
-      Queue queue = this.getQueue();
-      if (!queue.isFull()) {
-        return new Event[] {new ShopEventJoinQueue(this.getTime(), this.getCustomer(), queue)};
-      } else {
-        return new Event[] {new ShopEventDirectDeparture(this.getTime(), this.getCustomer())};
+    if (!this.shop.hasAvailableCounter()) {
+      // If no such counter can be found, the customer should try to
+      // join the shortest counter queue
+      if (this.shop.canJoinCounterQueue()) {
+        return new Event[] {
+          new ShopEventCounterJoinQueue(this.getTime(), this.customer, this.shop.getMinCounter())
+        };
+      } else if (!this.shop.getEntranceQueue().isFull()) {
+        // else join the entrance queue
+        return new Event[] {
+          new ShopEventJoinQueue(this.getTime(), this.customer, this.shop.getEntranceQueue())
+        };
       }
-    } else {
-      // Else, the customer should go the the first
-      // available counter and get served.
-      return new Event[] {
-        new ShopEventServiceBegin(
-            this.getTime(), this.getCustomer(), this.getShop(), this.getQueue())
-      };
+      // else depart customer because the shop is full
+      return new Event[] {new ShopEventDeparture(this.getTime(), this.customer, this.shop, null)};
     }
+    // Else, the customer should go the the first
+    // available counter and get served.
+    return new Event[] {new ShopEventServiceBegin(this.getTime(), this.customer, this.shop)};
   }
 }

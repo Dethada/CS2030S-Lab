@@ -6,9 +6,9 @@
  * @author Wei Tsang
  * @version CS2030S AY21/22 Semester 2
  */
-class Queue {
+class Queue<E> {
   /** An array to store the items in the queue. */
-  private Object[] items;
+  private E[] items;
 
   /** Index of the first element in the queue. */
   private int first;
@@ -29,7 +29,9 @@ class Queue {
    */
   public Queue(int size) {
     this.maxSize = size;
-    this.items = new Object[size];
+    @SuppressWarnings("unchecked")
+    final E[] tmp = (E[]) new Object[size];
+    this.items = tmp;
     this.first = -1;
     this.last = -1;
     this.len = 0;
@@ -41,7 +43,7 @@ class Queue {
    * @param e The item to put in the queue.
    * @return false if the queue is full; true if e is added successfully.
    */
-  public boolean enq(Object e) {
+  public boolean enq(E e) {
     if (this.isFull()) {
       return false;
     }
@@ -61,11 +63,11 @@ class Queue {
    *
    * @return null if the queue is empty; the object removed from the queue otherwise.
    */
-  public Object deq() {
+  public E deq() {
     if (this.isEmpty()) {
       return null;
     }
-    Object item = this.items[this.first];
+    E item = this.items[this.first];
     this.first = (this.first + 1) % this.maxSize;
     this.len -= 1;
     return item;

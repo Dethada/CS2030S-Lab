@@ -4,25 +4,32 @@
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
-class Counter {
+class Counter implements Comparable<Counter> {
   /*
    * Whether the counter is available, true for available, false for unavailable.
    */
-  private boolean available;
+  private Customer customer;
 
   /*
    * Id of the Counter.
    */
   private final int id;
 
+  /*
+   * The Counter's Queue.
+   */
+  private final Queue<Customer> queue;
+
   /**
    * Constructor for Counter.
    *
    * @param id The Id of the Counter.
+   * @param queueLength The length of the counter queue.
    */
-  public Counter(int id) {
-    this.available = true;
+  public Counter(int id, int queueLength) {
+    this.customer = null;
     this.id = id;
+    this.queue = new Queue<Customer>(queueLength);
   }
 
   /**
@@ -32,17 +39,25 @@ class Counter {
    */
   @Override
   public String toString() {
-    return "S" + this.id;
+    return "S" + this.id + " " + this.queue.toString();
   }
 
-  /** Set this counter to unavailable. */
-  public void setUnavailable() {
-    this.available = false;
+  /**
+   * Set this counter to unavailable.
+   *
+   * @return true if successful, false if failed.
+   **/
+  public boolean serveCustomer(Customer c) {
+    if (this.isAvailable()) {
+      this.customer = c;
+      return true;
+    }
+    return false;
   }
 
   /** Set this counter to available. */
-  public void setAvailable() {
-    this.available = true;
+  public void finishService() {
+    this.customer = null;
   }
 
   /**
@@ -51,7 +66,16 @@ class Counter {
    * @return true if available, false if unavailable.
    */
   public boolean isAvailable() {
-    return this.available;
+    return this.customer == null;
+  }
+
+  /**
+   * Check if the counter queue is full.
+   *
+   * @return true if queue is full, false if not full.
+   */
+  public boolean isQueueFull() {
+    return this.queue.isFull();
   }
 
   /**
@@ -61,5 +85,44 @@ class Counter {
    */
   public int getId() {
     return this.id;
+  }
+
+  public int queueLength() {
+    return this.queue.length();
+  }
+
+  /**
+   * Compare this event with a given event e.
+   *
+   * @param c The other counter to compare to.
+   * @return 1 if this counter queue is longer;
+   *         0 if they have the same length;
+   *         -1 if this counter queue is shorter.
+   */
+  @Override
+  public int compareTo(Counter c) {
+    //     You should implement compareTo in such a way that counters.min() returns the counter
+    // that a customer should join (unless all the counter queues have reached maximum length).
+    int thisQueueLength = this.queue.length();
+    int cQueueLength = c.queueLength();
+    if (thisQueueLength > cQueueLength) {
+      return 1;
+    } else if (thisQueueLength < cQueueLength) {
+      return -1;
+    }
+    return 0;
+  }
+
+  /**
+   * Enqueues the customer.
+   *
+   * @return true if success, false if fail (queue full).
+   */
+  public boolean joinQueue(Customer c) {
+    return this.queue.enq(c);
+  }
+
+  public Customer deQueue() {
+    return this.queue.deq();
   }
 }

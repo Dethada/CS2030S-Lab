@@ -5,9 +5,13 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventDeparture extends Event {
-
+  /** The customer associated with this event. */
   private final Customer customer;
+
+  /** The shop associated with this event. */
   private final Shop shop;
+
+  /** The counter associated with this event. */
   private final Counter counter;
 
   /**

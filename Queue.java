@@ -4,7 +4,8 @@
  * Not to be confused with java.util.Queue.
  *
  * @author Wei Tsang
- * @version CS2030S AY21/22 Semester 2
+ * @author David Zhu (Group 12B)
+ * @version CS2030S AY22/23 Semester 1
  */
 class Queue<E> {
   /** An array to store the items in the queue. */

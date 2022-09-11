@@ -1,13 +1,14 @@
 /**
- * Class representing a Join Queue Event.
+ * Class representing a Join Counter Queue Event.
  *
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventCounterJoinQueue extends Event {
-
+  /** The customer associated with this event. */
   private final Customer customer;
 
+  /** The shop associated with this event. */
   private final Counter counter;
 
   /**
@@ -24,7 +25,7 @@ class ShopEventCounterJoinQueue extends Event {
   }
 
   /**
-   * Returns the string representation of this Join Queue event.
+   * Returns the string representation of this Counter Join Queue event.
    *
    * @return A string representing this service arrival event.
    */
@@ -36,7 +37,7 @@ class ShopEventCounterJoinQueue extends Event {
   }
 
   /**
-   * Simulate the a join queue event.
+   * Simulate the a counter join queue event.
    *
    * @return Empty Events array.
    */

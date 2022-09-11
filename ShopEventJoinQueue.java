@@ -5,22 +5,23 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventJoinQueue extends Event {
-
+  /** The customer associated with this event. */
   private final Customer customer;
 
-  private final Queue<Customer> queue;
+  /** The shop associated with this event. */
+  private final Shop shop;
 
   /**
    * Constructor for ShopEventJoinQueue.
    *
    * @param time The time this event occurs.
    * @param customer The customer associated with this event.
-   * @param queue The queue for the customers.
+   * @param shop The shop containing all the counters.
    */
-  public ShopEventJoinQueue(double time, Customer customer, Queue<Customer> queue) {
+  public ShopEventJoinQueue(double time, Customer customer, Shop shop) {
     super(time);
     this.customer = customer;
-    this.queue = queue;
+    this.shop = shop;
   }
 
   /**
@@ -32,7 +33,7 @@ class ShopEventJoinQueue extends Event {
   public String toString() {
     return super.toString()
         + String.format(
-            ": %s joined shop queue %s", this.customer.toString(), this.queue.toString());
+            ": %s joined shop queue %s", this.customer.toString(), this.shop.entranceQueueString());
   }
 
   /**
@@ -42,7 +43,7 @@ class ShopEventJoinQueue extends Event {
    */
   @Override
   public Event[] simulate() {
-    this.queue.enq(this.customer);
+    this.shop.enQueueEntrance(this.customer);
     return new Event[] {};
   }
 }

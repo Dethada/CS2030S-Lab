@@ -5,9 +5,10 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventArrival extends Event {
-
+  /** The customer associated with this event. */
   private final Customer customer;
 
+  /** The shop associated with this event. */
   private final Shop shop;
 
   /**
@@ -32,7 +33,7 @@ class ShopEventArrival extends Event {
   public String toString() {
     return super.toString()
         + String.format(
-            ": %s arrived %s", this.customer.toString(), this.shop.getEntranceQueue().toString());
+            ": %s arrived %s", this.customer.toString(), this.shop.entranceQueueString());
   }
 
   /**
@@ -49,11 +50,9 @@ class ShopEventArrival extends Event {
         return new Event[] {
           new ShopEventCounterJoinQueue(this.getTime(), this.customer, this.shop.getMinCounter())
         };
-      } else if (!this.shop.getEntranceQueue().isFull()) {
+      } else if (!this.shop.entranceQueueFull()) {
         // else join the entrance queue
-        return new Event[] {
-          new ShopEventJoinQueue(this.getTime(), this.customer, this.shop.getEntranceQueue())
-        };
+        return new Event[] {new ShopEventJoinQueue(this.getTime(), this.customer, this.shop)};
       }
       // else depart customer because the shop is full
       return new Event[] {new ShopEventDeparture(this.getTime(), this.customer, this.shop, null)};

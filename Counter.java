@@ -88,6 +88,11 @@ class Counter implements Comparable<Counter> {
     return this.id;
   }
 
+  /**
+   * Return the counter queue length.
+   *
+   * @return The counter queue length.
+   */
   public int queueLength() {
     return this.queue.length();
   }
@@ -102,8 +107,6 @@ class Counter implements Comparable<Counter> {
    */
   @Override
   public int compareTo(Counter c) {
-    //     You should implement compareTo in such a way that counters.min() returns the counter
-    // that a customer should join (unless all the counter queues have reached maximum length).
     int thisQueueLength = this.queue.length();
     int otherQueueLength = c.queueLength();
     if (thisQueueLength > otherQueueLength) {
@@ -124,6 +127,11 @@ class Counter implements Comparable<Counter> {
     return this.queue.enq(c);
   }
 
+  /**
+   * Dequeues the customer.
+   *
+   * @return The customer that got dequeue or null.
+   */
   public Customer deQueue() {
     return this.queue.deq();
   }

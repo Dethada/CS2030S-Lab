@@ -6,8 +6,9 @@
  */
 class Shop {
   /** The counters in the shop. */
-  private Array<Counter> counters;
+  private final Array<Counter> counters;
 
+  /** The entrance queue in the shop. */
   private final Queue<Customer> entranceQueue;
 
   /**
@@ -102,14 +103,48 @@ class Shop {
     return false;
   }
 
-  public Queue<Customer> getEntranceQueue() {
-    return this.entranceQueue;
-  }
-
+  /**
+   * Get the counter with the shortest queue.
+   *
+   * @return The counter with the shortest queue.
+   */
   public Counter getMinCounter() {
     return this.counters.min();
   }
 
+  /**
+   * Check if the entrance queue is full.
+   *
+   * @return true if full, false if not.
+   */
+  public boolean entranceQueueFull() {
+    return this.entranceQueue.isFull();
+  }
+
+  /**
+   * String representation of the entrance queue.
+   *
+   * @return The string representation of the entrance queue.
+   */
+  public String entranceQueueString() {
+    return this.entranceQueue.toString();
+  }
+
+  /**
+   * Add the customer to the entrance queue.
+   *
+   * @param c The customer to be added.
+   * @return true if success, false if failed.
+   */
+  public boolean enQueueEntrance(Customer c) {
+    return this.entranceQueue.enq(c);
+  }
+
+  /**
+   * Dequeue a customer from the entrance queue.
+   *
+   * @return The customer dequeued from the entrance queue.
+   */
   public Customer deQueueEntrance() {
     return this.entranceQueue.deq();
   }

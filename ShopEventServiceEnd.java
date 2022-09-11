@@ -5,13 +5,13 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventServiceEnd extends Event {
-  /**
-   * The counter associated with this event. This field only matters if the event type if
-   * SERVICE_BEGIN or SERVICE_END.
-   */
+  /** The counter associated with this event. */
   private final Counter counter;
 
+  /** The customer associated with this event. */
   private final Customer customer;
+
+  /** The shop associated with this event. */
   private final Shop shop;
 
   /**

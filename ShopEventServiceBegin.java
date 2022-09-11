@@ -5,14 +5,13 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventServiceBegin extends Event {
-  /**
-   * The counter associated with this event. This field only matters if the event type if
-   * SERVICE_BEGIN or SERVICE_END.
-   */
+  /** The counter associated with this event. */
   private final Counter counter;
 
+  /** The customer associated with this event. */
   private final Customer customer;
 
+  /** The shop associated with this event. */
   private final Shop shop;
 
   /**
@@ -28,7 +27,6 @@ class ShopEventServiceBegin extends Event {
     this.customer = customer;
     this.shop = shop;
     this.counter = counter;
-    // System.out.println("Here");
   }
 
   /**
@@ -43,8 +41,6 @@ class ShopEventServiceBegin extends Event {
     this.customer = customer;
     this.shop = shop;
     this.counter = this.shop.getAvailableCounter();
-    // System.out.println(this.counter);
-    // System.out.println("Here2");
   }
 
   /**
@@ -69,9 +65,7 @@ class ShopEventServiceBegin extends Event {
     // The current event is a service-begin event.
     // Mark the counter is unavailable, then schedule
     // a service-end event at the current time + service time.
-    boolean status = this.counter.serveCustomer(this.customer);
-    // System.out.println(status);
-    // System.out.println(this.counter.isAvailable());
+    this.counter.serveCustomer(this.customer);
     double endTime = this.getTime() + this.customer.getServiceTime();
     return new Event[] {new ShopEventServiceEnd(endTime, this.customer, this.counter, this.shop)};
   }

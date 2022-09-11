@@ -5,9 +5,11 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventJoinQueue extends Event {
+
   private final Customer customer;
 
   private final Queue<Customer> queue;
+
   /**
    * Constructor for ShopEventJoinQueue.
    *

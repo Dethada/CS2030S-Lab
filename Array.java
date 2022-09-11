@@ -1,5 +1,5 @@
 /**
- * The Array<T> for CS2030S
+ * The {@literal Array<T>} for CS2030S.
  *
  * @author David
  * @version CS2030S AY21/22 Semester 2
@@ -27,16 +27,16 @@ class Array<T extends Comparable<T>> {
   public T min() {
     T min = this.array[0];
     for (int i = 1; i < this.array.length; i++) {
-        if (min.compareTo(this.array[i]) > 0) {
-            min = this.array[i];
-        }
+      if (min.compareTo(this.array[i]) > 0) {
+        min = this.array[i];
+      }
     }
     return min;
   }
 
   public int length() {
-        return this.length;
-    }
+    return this.length;
+  }
 
   @Override
   public String toString() {

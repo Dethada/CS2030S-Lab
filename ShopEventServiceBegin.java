@@ -12,6 +12,7 @@ class ShopEventServiceBegin extends Event {
   private final Counter counter;
 
   private final Customer customer;
+
   private final Shop shop;
 
   /**
@@ -20,7 +21,7 @@ class ShopEventServiceBegin extends Event {
    * @param time The time this event occurs.
    * @param customer The customer associated with this event.
    * @param shop The shop containing all the counters.
-   * @param queue The queue for the customers.
+   * @param counter The queue to use for the customer.
    */
   public ShopEventServiceBegin(double time, Customer customer, Shop shop, Counter counter) {
     super(time);
@@ -36,7 +37,6 @@ class ShopEventServiceBegin extends Event {
    * @param time The time this event occurs.
    * @param customer The customer associated with this event.
    * @param shop The shop containing all the counters.
-   * @param queue The queue for the customers.
    */
   public ShopEventServiceBegin(double time, Customer customer, Shop shop) {
     super(time);

@@ -5,16 +5,17 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventArrival extends Event {
+
   private final Customer customer;
 
   private final Shop shop;
+
   /**
    * Constructor for ShopEventArrival.
    *
    * @param time The time this event occurs.
    * @param customer The customer associated with this event.
    * @param shop The shop containing all the counters.
-   * @param queue The queue for the customers.
    */
   public ShopEventArrival(double time, Customer customer, Shop shop) {
     super(time);

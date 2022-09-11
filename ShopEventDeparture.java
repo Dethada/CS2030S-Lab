@@ -5,6 +5,7 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventDeparture extends Event {
+
   private final Customer customer;
   private final Shop shop;
   private final Counter counter;
@@ -15,7 +16,7 @@ class ShopEventDeparture extends Event {
    * @param time The time this event occurs.
    * @param customer The customer associated with this event.
    * @param shop The shop containing all the counters.
-   * @param queue The queue for the customers.
+   * @param counter The counter the cutomer departed from.
    */
   public ShopEventDeparture(double time, Customer customer, Shop shop, Counter counter) {
     super(time);

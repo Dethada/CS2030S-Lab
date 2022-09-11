@@ -5,9 +5,11 @@
  * @version CS2030S AY22/23 Semester 1
  */
 class ShopEventCounterJoinQueue extends Event {
+
   private final Customer customer;
 
   private final Counter counter;
+
   /**
    * Constructor for ShopEventCounterJoinQueue.
    *

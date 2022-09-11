@@ -39,6 +39,7 @@ class Shop {
   /**
    * Get an available counter and set it to be unavailable.
    *
+   * @param customer The customer that will be servecd by the counter.
    * @return An available Counter that was just set to unavailable or null.
    */
   public Counter useCounter(Customer customer) {
@@ -80,6 +81,7 @@ class Shop {
   /**
    * Join the shortest counter queue.
    *
+   * @param customer The customer to join the counter queue.
    * @return true if success, false if all counter queues are full.
    */
   public boolean joinCounterQueue(Customer customer) {

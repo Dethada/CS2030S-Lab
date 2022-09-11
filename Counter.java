@@ -45,6 +45,7 @@ class Counter implements Comparable<Counter> {
   /**
    * Set this counter to unavailable.
    *
+   * @param c The customer to be served.
    * @return true if successful, false if failed.
    **/
   public boolean serveCustomer(Customer c) {
@@ -104,10 +105,10 @@ class Counter implements Comparable<Counter> {
     //     You should implement compareTo in such a way that counters.min() returns the counter
     // that a customer should join (unless all the counter queues have reached maximum length).
     int thisQueueLength = this.queue.length();
-    int cQueueLength = c.queueLength();
-    if (thisQueueLength > cQueueLength) {
+    int otherQueueLength = c.queueLength();
+    if (thisQueueLength > otherQueueLength) {
       return 1;
-    } else if (thisQueueLength < cQueueLength) {
+    } else if (thisQueueLength < otherQueueLength) {
       return -1;
     }
     return 0;
@@ -116,6 +117,7 @@ class Counter implements Comparable<Counter> {
   /**
    * Enqueues the customer.
    *
+   * @param c The customer that will join the counter queue.
    * @return true if success, false if fail (queue full).
    */
   public boolean joinQueue(Customer c) {

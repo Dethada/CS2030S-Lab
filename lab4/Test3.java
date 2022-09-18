@@ -1,7 +1,7 @@
 class Test3 {
   public static void main(String[] args) {
     CS2030STest we = new CS2030STest();
-    
+
     class Incr implements Immutator<Integer,Integer> {
       public Integer invoke(Integer t1) {
         return t1 + 1;
@@ -12,7 +12,7 @@ class Test3 {
         return t1.length();
       }
     }
-    
+
     we.expect("new Incr().invoke(4)",
               new Incr().invoke(4).toString(),
               "5");

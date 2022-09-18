@@ -5,14 +5,14 @@
  * we may return something that contains nothing
  * where the nothing is a null.
  *
- * @author XXX
+ * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
-class Probably<T> {
+class Probably<T> implements Actionable<T> {
   private final T value;
 
   private static final Probably<?> NONE = new Probably<>(null);
-  
+
   /**
    * Private constructor, can only be invoked inside.
    * This is called a factory method.  We can only
@@ -23,7 +23,7 @@ class Probably<T> {
   private Probably(T value) {
     this.value = value;
   }
-  
+
   /**
    * It is probably nothing, no value inside.
    *
@@ -34,7 +34,7 @@ class Probably<T> {
     Probably<T> res = (Probably<T>) NONE;
     return res;
   }
-  
+
   /**
    * It is probably just the given value.
    * Unless the value is null, then nothing is
@@ -42,7 +42,7 @@ class Probably<T> {
    *
    * @param value Probably this is the value
    *              unless it is null then we say
-   *              that there is no 
+   *              that there is no
    * @return The given value or nothing but
    *         never null.
    */
@@ -52,7 +52,7 @@ class Probably<T> {
     }
     return (Probably<T>) new Probably<>(value);
   }
-  
+
   /**
    * Check for equality between something that
    * is probably a value but maybe nothing.
@@ -78,7 +78,7 @@ class Probably<T> {
     }
     return false;
   }
-  
+
   /**
    * String representation of something that
    * is probably a value but maybe nothing.
@@ -93,4 +93,12 @@ class Probably<T> {
       return "<" + this.value.toString() + ">";
     }
   }
+
+  @Override
+  public <T> void act(Action<T> action) {
+        if (this.value == null) {
+            return;
+        }
+        action.call(this.value);
+    }
 }

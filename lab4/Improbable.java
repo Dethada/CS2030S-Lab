@@ -5,7 +5,7 @@
  * CS2030S Lab 4
  * AY22/23 Semester 1
  *
- * @author Put Your Name (Lab Group)
+ * @author David Zhu (Group 12B)
  */
 
 class Improbable<T> implements Immutator<Probably<T>, T> {

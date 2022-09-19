@@ -18,7 +18,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
    * This is called a factory method.  We can only
    * create this using the two public static method.
    *
-   * @return The shared NOTHING.
+   * @param value The value to be wrapped.
    */
   private Probably(T value) {
     this.value = value;
@@ -27,6 +27,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
   /**
    * It is probably nothing, no value inside.
    *
+   * @param <T> The type for this Probably object.
    * @return The shared NOTHING.
    */
   public static <T> Probably<T> none() {
@@ -40,6 +41,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
    * Unless the value is null, then nothing is
    * given again.
    *
+   * @param <T> The type for this Probably object.
    * @param value Probably this is the value
    *              unless it is null then we say
    *              that there is no
@@ -95,7 +97,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
   }
 
   @Override
-  public <T> void act(Action<T> action) {
+  public <S> void act(Action<S> action) {
     if (this.value == null) {
       return;
     }
@@ -121,7 +123,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
 
   @Override
   public <R> Probably<R> apply(Probably<Immutator<R, T>> x) {
-    if (this.value == null || x == Probably.NONE) {
+    if (this.value == null || x.value == null) {
       return Probably.none();
     }
     R tmp = x.value.invoke(this.value);

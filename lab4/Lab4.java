@@ -18,6 +18,7 @@ class Lab4 {
       return t1 + 1;
     }
   }
+
   /**
    * Inner class for testing.
    */
@@ -66,9 +67,8 @@ class Lab4 {
       case 5:
         test5();
         break;
-      case 6:
+      default:
         test6();
-        break;
     }
 
     // Clean up the scanner.

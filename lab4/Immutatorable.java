@@ -1,5 +1,5 @@
 /**
- * The Immutatorable interface that can
+ * <pre>The Immutatorable interface that can
  * transform when given something that is
  * Immutator.
  *
@@ -7,6 +7,7 @@
  *
  * CS2030S Lab 4
  * AY22/23 Semester 1
+ * </pre>
  *
  * @author David Zhu (Group 12B)
  */

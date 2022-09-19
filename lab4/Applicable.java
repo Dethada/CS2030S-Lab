@@ -1,5 +1,5 @@
 /**
- * The Applicable interface that can probably
+ * <pre>The Applicable interface that can probably
  * transform if given something that is
  * probably an Immutator.
  *
@@ -7,6 +7,7 @@
  *
  * CS2030S Lab 4
  * AY22/23 Semester 1
+ * </pre>
  *
  * @author David Zhu (Group 12B)
  */

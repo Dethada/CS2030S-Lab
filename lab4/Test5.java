@@ -37,5 +37,9 @@ class Test5 {
         "Probably.<Integer>just(null).check(new IsModEq(0,2))",
         Probably.<Integer>just(null).check(new IsModEq(0, 2)).toString(),
         "<>");
+    // we.expect(
+    //     "Probably.<Integer>just(null).check(new IsModEq(0,2))",
+    //     Probably.<Integer>just(2030).check(new IsModEq(0, 2)).toString(),
+    //     "<>");
   }
 }

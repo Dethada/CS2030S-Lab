@@ -11,13 +11,17 @@
  * @author David Zhu (Group 12B)
  */
 class IsModEq implements Immutator<Boolean, Integer> {
+
+  private final int div;
+  private final int check;
+
   public IsModEq(int div, int check) {
-    // TODO
+    this.div = div;
+    this.check = check;
   }
 
   @Override
   public Boolean invoke(Integer val) {
-    // TODO
-    return val == val;
+    return val % this.div == this.check;
   }
 }

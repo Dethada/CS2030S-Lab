@@ -96,19 +96,19 @@ class Probably<T> implements Actionable<T>, Immutatorable<T> {
 
   @Override
   public <T> void act(Action<T> action) {
-        if (this.value == null) {
-            return;
-        }
-        action.call(this.value);
+    if (this.value == null) {
+      return;
     }
+    action.call(this.value);
+  }
 
   public <R> Probably<R> transform(Immutator<R, T> x) {
-        if (this.value == null) {
-            return Probably.none();
-        }
-        // System.out.println(this.value);
-        // System.out.println(x);
-        R tmp = x.invoke(this.value);
-        return (Probably<R>) new Probably<>(tmp);
+    if (this.value == null) {
+      return Probably.none();
     }
+    // System.out.println(this.value);
+    // System.out.println(x);
+    R tmp = x.invoke(this.value);
+    return (Probably<R>) new Probably<>(tmp);
+  }
 }

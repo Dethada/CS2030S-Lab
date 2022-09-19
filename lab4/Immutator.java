@@ -9,7 +9,6 @@
  *
  * @author David Zhu (Group 12B)
  */
-
 interface Immutator<R, P> {
-    R invoke(P x);
+  R invoke(P x);
 }

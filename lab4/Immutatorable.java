@@ -10,7 +10,6 @@
  *
  * @author David Zhu (Group 12B)
  */
-
 interface Immutatorable<T> {
-    <R> Immutatorable<R> transform(Immutator<R, T> x);
+  <R> Immutatorable<R> transform(Immutator<R, T> x);
 }

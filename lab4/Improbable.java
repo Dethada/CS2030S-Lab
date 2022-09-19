@@ -7,10 +7,9 @@
  *
  * @author David Zhu (Group 12B)
  */
-
 class Improbable<T> implements Immutator<Probably<T>, T> {
-    @Override
-    public Probably<T> invoke(T x) {
-        return Probably.just(x);
-    }
+  @Override
+  public Probably<T> invoke(T x) {
+    return Probably.just(x);
+  }
 }

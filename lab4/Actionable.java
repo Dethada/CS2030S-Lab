@@ -9,7 +9,6 @@
  *
  * @author David Zhu (Group 12B)
  */
-
 interface Actionable<T> {
-    <T> void act(Action<T> action);
+  <T> void act(Action<T> action);
 }

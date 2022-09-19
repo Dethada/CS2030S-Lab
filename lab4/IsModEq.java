@@ -10,3 +10,14 @@
  *
  * @author David Zhu (Group 12B)
  */
+class IsModEq implements Immutator<Boolean, Integer> {
+  public IsModEq(int div, int check) {
+    // TODO
+  }
+
+  @Override
+  public Boolean invoke(Integer val) {
+    // TODO
+    return val == val;
+  }
+}

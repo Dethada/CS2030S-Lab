@@ -7,10 +7,9 @@
  *
  * @author David Zhu (Group 12B)
  */
-
 class Print implements Action<Print> {
-    @Override
-    public <T> void call(T value) {
-        System.out.println(value);
-    }
+  @Override
+  public <T> void call(T value) {
+    System.out.println(value);
+  }
 }

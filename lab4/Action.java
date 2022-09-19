@@ -9,7 +9,6 @@
  *
  * @author David Zhu (Group 12B)
  */
-
 interface Action<T> {
-    <T> void call(T value);
+  <T> void call(T value);
 }

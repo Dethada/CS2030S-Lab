@@ -1,10 +1,10 @@
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.net.URI;
 import java.util.List;
 import javax.tools.DiagnosticCollector;
 import javax.tools.SimpleJavaFileObject;
 import javax.tools.ToolProvider;
-import java.io.PrintStream;
-import java.io.ByteArrayOutputStream;
 
 class CS2030STest {
 
@@ -22,16 +22,17 @@ class CS2030STest {
       System.out.println("  got this: " + output);
     }
   }
-  
+
   public static String clean(String txt) {
     String res = "";
-    for (int i=0; i<txt.length(); i++) {
+    for (int i = 0; i < txt.length(); i++) {
       if (txt.charAt(i) != '\r' && txt.charAt(i) != '\n') {
         res += txt.charAt(i);
       }
     }
     return res;
   }
+
   public void expectPrint(String test, Object expect, ByteArrayOutputStream baos, PrintStream old) {
     System.out.flush();
     System.setOut(old);
@@ -46,7 +47,7 @@ class CS2030STest {
 
       JavaSourceFromString(String code) {
         super(URI.create("string:///TempClass.java"), Kind.SOURCE);
-        this.code = "class TempClass {void foo(){" +  code + ";}}";
+        this.code = "class TempClass {void foo(){" + code + ";}}";
       }
 
       @Override
@@ -55,11 +56,16 @@ class CS2030STest {
       }
     }
 
-    boolean noError = ToolProvider
-        .getSystemJavaCompiler()
-        .getTask(null, null, new DiagnosticCollector<>(), null, null, 
-            List.of(new JavaSourceFromString(statement)))
-        .call();
+    boolean noError =
+        ToolProvider.getSystemJavaCompiler()
+            .getTask(
+                null,
+                null,
+                new DiagnosticCollector<>(),
+                null,
+                null,
+                List.of(new JavaSourceFromString(statement)))
+            .call();
 
     if (noError != success) {
       System.out.println(".. " + ANSI_RED + "failed" + ANSI_RESET);

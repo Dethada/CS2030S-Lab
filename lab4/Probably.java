@@ -8,7 +8,7 @@
  * @author David Zhu (Group 12B)
  * @version CS2030S AY22/23 Semester 1
  */
-class Probably<T> implements Actionable<T>, Immutatorable<T> {
+class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
   private final T value;
 
   private static final Probably<?> NONE = new Probably<>(null);
@@ -117,5 +117,14 @@ class Probably<T> implements Actionable<T>, Immutatorable<T> {
       }
     }
     return Probably.none();
+  }
+
+  @Override
+  public <R> Probably<R> apply(Probably<Immutator<R, T>> x) {
+    if (this.value == null || x == Probably.NONE) {
+      return Probably.none();
+    }
+    R tmp = x.value.invoke(this.value);
+    return (Probably<R>) new Probably<>(tmp);
   }
 }

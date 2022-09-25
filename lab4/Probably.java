@@ -104,7 +104,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
     action.call(this.value);
   }
 
-  public <R> Probably<R> transform(Immutator<R, T> x) {
+  public <R> Probably<R> transform(Immutator<? extends R, ? super T> x) {
     if (this.value == null) {
       return Probably.none();
     }

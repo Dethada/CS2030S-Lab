@@ -97,7 +97,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
   }
 
   @Override
-  public <S> void act(Action<S> action) {
+  public void act(Action<? super T> action) {
     if (this.value == null) {
       return;
     }

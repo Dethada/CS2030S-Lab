@@ -11,5 +11,5 @@
  * @author David Zhu (Group 12B)
  */
 interface Action<T> {
-  <T> void call(T value);
+  void call(T value);
 }

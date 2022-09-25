@@ -11,5 +11,5 @@
  * @author David Zhu (Group 12B)
  */
 interface Actionable<T> {
-  <T> void act(Action<T> action);
+  void act(Action<? super T> action);
 }

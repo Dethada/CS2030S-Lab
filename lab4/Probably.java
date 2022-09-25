@@ -108,8 +108,7 @@ class Probably<T> implements Actionable<T>, Immutatorable<T>, Applicable<T> {
     if (this.value == null) {
       return Probably.none();
     }
-    R tmp = x.invoke(this.value);
-    return (Probably<R>) new Probably<>(tmp);
+    return Probably.just(x.invoke(this.value));
   }
 
   public Probably<T> check(IsModEq x) {

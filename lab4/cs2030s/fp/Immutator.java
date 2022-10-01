@@ -1,3 +1,4 @@
+package cs2030s.fp;
 /**
  * <pre>The Immutator interface that can transform
  * to type T2, an object of type T1.
@@ -10,6 +11,6 @@
  *
  * @author David Zhu (Group 12B)
  */
-interface Immutator<R, P> {
+public interface Immutator<R, P> {
   R invoke(P x);
 }

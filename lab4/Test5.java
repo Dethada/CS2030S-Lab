@@ -1,45 +1,55 @@
-class Test5 {
+import java.io.PrintStream;
+import java.io.ByteArrayOutputStream;
+
+public class Test5 {
   public static void main(String[] args) {
     CS2030STest we = new CS2030STest();
-
-    class Incr implements Immutator<Integer, Integer> {
-      public Integer invoke(Integer t1) {
-        return t1 + 1;
+    
+    cs2030s.fp.Immutator<cs2030s.fp.Actually<Integer>,Integer> half = new cs2030s.fp.Immutator<>() {
+      public cs2030s.fp.Actually<Integer> invoke(Integer p) {
+        if (p%2 == 0) {
+          return cs2030s.fp.Actually.<Integer>ok(p/2);
+        } else {
+          return cs2030s.fp.Actually.<Integer>err(new Exception("odd number"));
+        }
       }
-    }
-    class Length implements Immutator<Integer, String> {
-      public Integer invoke(String t1) {
-        return t1.length();
+    };
+    cs2030s.fp.Immutator<cs2030s.fp.Actually<Integer>,Integer> inc = new cs2030s.fp.Immutator<>() {
+      public cs2030s.fp.Actually<Integer> invoke(Integer p) {
+        return cs2030s.fp.Actually.<Integer>ok(p+1);
       }
-    }
-
+    };
+    cs2030s.fp.Immutator<cs2030s.fp.Actually<Integer>,Integer> make = new cs2030s.fp.Immutator<>() {
+      public cs2030s.fp.Actually<Integer> invoke(Integer p) {
+        return cs2030s.fp.Actually.<Integer>ok(p);
+      }
+    };
+    cs2030s.fp.Constant<Integer> zero = new cs2030s.fp.Constant<>() {
+      public Integer init() {
+        return 0;
+      }
+    };
+    
     we.expect(
-        "Probably.just(17).check(new IsModEq(3,2)) // 17 % 3 is equal to 2",
-        Probably.just(17).check(new IsModEq(3, 2)).toString(), "<17>");
+      "make.invoke(0).next(inc).next(inc).next(half)",
+      make.invoke(0).next(inc).next(inc).next(half).toString(),
+      "<1>"
+    );
     we.expect(
-        "Probably.just(18).check(new IsModEq(3,2)) // 18 % 3 is not equal to 2",
-        Probably.just(18).check(new IsModEq(3, 2)).toString(), "<>");
-
+      "make.invoke(0).next(inc).next(half).next(inc)",
+      make.invoke(0).next(inc).next(half).next(inc).toString(),
+      "[java.lang.Exception] odd number"
+    );
+    
     we.expect(
-        "Probably.just(16).transform(new Incr()).check(new IsModEq(3,2)) // 17 % 3 is not equal to"
-            + " 2",
-        Probably.just(16).transform(new Incr()).check(new IsModEq(3, 2)).toString(), "<17>");
+      "make.invoke(0).next(inc).next(inc).next(half).except(zero)",
+      make.invoke(0).next(inc).next(inc).next(half).except(zero).toString(),
+      "1"
+    );
     we.expect(
-        "Probably.just(\"string\").transform(new Length()).check(new IsModEq(3,2))",
-        Probably.just("string")
-            .transform(new Length())
-            .transform(new Incr())
-            .transform(new Incr())
-            .check(new IsModEq(3, 2))
-            .toString(),
-        "<8>");
-    we.expect(
-        "Probably.<Integer>just(null).check(new IsModEq(0,2))",
-        Probably.<Integer>just(null).check(new IsModEq(0, 2)).toString(),
-        "<>");
-    // we.expect(
-    //     "Probably.<Integer>just(null).check(new IsModEq(0,2))",
-    //     Probably.<Integer>just(2030).check(new IsModEq(0, 2)).toString(),
-    //     "<>");
+      "make.invoke(0).next(inc).next(half).next(inc).except(zero)",
+      make.invoke(0).next(inc).next(half).next(inc).except(zero).toString(),
+      "0"
+    );
   }
 }

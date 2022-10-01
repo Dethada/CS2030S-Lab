@@ -1,3 +1,4 @@
+package cs2030s.fp;
 /**
  * <pre>The Action interface that can be called
  * on an object of type T to act.
@@ -10,6 +11,6 @@
  *
  * @author David Zhu (Group 12B)
  */
-interface Action<T> {
+public interface Action<T> {
   void call(T value);
 }

@@ -1,3 +1,4 @@
+package cs2030s.fp;
 /**
  * <pre>The Immutatorable interface that can
  * transform when given something that is
@@ -11,6 +12,6 @@
  *
  * @author David Zhu (Group 12B)
  */
-interface Immutatorable<T> {
+public interface Immutatorable<T> {
   <R> Immutatorable<R> transform(Immutator<? extends R, ? super T> x);
 }

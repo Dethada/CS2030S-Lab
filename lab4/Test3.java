@@ -1,42 +1,71 @@
-class Test3 {
+import java.io.PrintStream;
+import java.io.ByteArrayOutputStream;
+
+public class Test3 {
   public static void main(String[] args) {
     CS2030STest we = new CS2030STest();
-
-    class Incr implements Immutator<Integer, Integer> {
-      public Integer invoke(Integer t1) {
-        return t1 + 1;
+    
+    cs2030s.fp.Immutator<Integer,Integer> inc = new cs2030s.fp.Immutator<>() {
+      public Integer invoke(Integer p) {
+        return p+1;
       }
-    }
-    class Length implements Immutator<Integer, String> {
-      public Integer invoke(String t1) {
-        return t1.length();
+    };
+    cs2030s.fp.Immutator<Integer,Integer> inv = new cs2030s.fp.Immutator<>() {
+      public Integer invoke(Integer p) {
+        return 1/p;
       }
-    }
-
-    we.expect("new Incr().invoke(4)", new Incr().invoke(4).toString(), "5");
+    };
+    cs2030s.fp.Immutator<Number,Integer> incNum = new cs2030s.fp.Immutator<>() {
+      public Number invoke(Integer p) {
+        return p+1;
+      }
+    };
+    cs2030s.fp.Immutator<Number,Integer> invNum = new cs2030s.fp.Immutator<>() {
+      public Number invoke(Integer p) {
+        return 1/p;
+      }
+    };
+    
     we.expect(
-        "new Incr().invoke(new Incr().invoke(4))",
-        new Incr().invoke(new Incr().invoke(4)).toString(),
-        "6");
-    we.expect("new Length().invoke(\"string\")", new Length().invoke("string").toString(), "6");
+      "Actually.<Integer>ok(0).transform(inc)",
+      cs2030s.fp.Actually.<Integer>ok(0).transform(inc).toString(),
+      "<1>"
+    );
     we.expect(
-        "new Incr().invoke(new Length().invoke(\"string\"))",
-        new Incr().invoke(new Length().invoke("string")).toString(),
-        "7");
-
+      "Actually.<Integer>ok(0).transform(inv)",
+      cs2030s.fp.Actually.<Integer>ok(0).transform(inv).toString(),
+      "[java.lang.ArithmeticException] / by zero"
+    );
     we.expect(
-        "new Improbable<>().invoke(1)", new Improbable<Integer>().invoke(1).toString(), "<1>");
+      "Actually.ok(0).transform(inc)",
+      cs2030s.fp.Actually.ok(0).transform(inc).toString(),
+      "<1>"
+    );
     we.expect(
-        "new Improbable<String>().invoke(null)",
-        new Improbable<String>().invoke(null).toString(),
-        "<>");
+      "Actually.ok(0).transform(inv)",
+      cs2030s.fp.Actually.ok(0).transform(inv).toString(),
+      "[java.lang.ArithmeticException] / by zero"
+    );
+    
     we.expect(
-        "new Improbable<Integer>().invoke(1).transform(new Incr())",
-        new Improbable<Integer>().invoke(1).transform(new Incr()).toString(),
-        "<2>");
+      "Actually.<Integer>ok(0).transform(incNum)",
+      cs2030s.fp.Actually.<Integer>ok(0).transform(incNum).toString(),
+      "<1>"
+    );
     we.expect(
-        "new Improbable<>().invoke(new Improbable<>().invoke(1))",
-        new Improbable<>().invoke(new Improbable<Integer>().invoke(1)).toString(),
-        "<<1>>");
+      "Actually.<Integer>ok(0).transform(invNum)",
+      cs2030s.fp.Actually.<Integer>ok(0).transform(invNum).toString(),
+      "[java.lang.ArithmeticException] / by zero"
+    );
+    we.expect(
+      "Actually.ok(0).transform(incNum)",
+      cs2030s.fp.Actually.ok(0).transform(incNum).toString(),
+      "<1>"
+    );
+    we.expect(
+      "Actually.ok(0).transform(invNum)",
+      cs2030s.fp.Actually.ok(0).transform(invNum).toString(),
+      "[java.lang.ArithmeticException] / by zero"
+    );
   }
 }

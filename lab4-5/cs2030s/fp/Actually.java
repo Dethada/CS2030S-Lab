@@ -12,6 +12,14 @@ public abstract class Actually<T> {
 
     public abstract boolean equals(Object x);
 
+    public abstract T unwrap() throws Exception;
+
+    public abstract T except(Constant<? extends T> x);
+
+    public abstract void finish(Action<? extends T> x);
+
+    public abstract T unless(T x);
+
     private static final class Success<T> extends Actually<T> {
         private final T res;
 
@@ -46,6 +54,26 @@ public abstract class Actually<T> {
             }
             return false;
         }
+
+        @Override
+        public T unwrap() {
+            return this.res;
+        }
+
+        @Override
+        public T except(Constant<? extends T> x) {
+            return this.res;
+        }
+
+        @Override
+        public void finish(Action<? extends T> x) {
+            x.call(this.res);
+        }
+
+        @Override
+        public T unless(T x) {
+            return this.res;
+        }
     }
 
     private static final class Failure extends Actually<Object> {
@@ -76,6 +104,25 @@ public abstract class Actually<T> {
                 return this.exc.equals(some.exc);
             }
             return false;
+        }
+
+        @Override
+        public Object unwrap() throws Exception {
+            throw this.exc;
+        }
+
+        @Override
+        public Object except(Constant<? extends Object> x) {
+            return x.init();
+        }
+
+        @Override
+        public void finish(Action<Object> x) {
+        }
+
+        @Override
+        public Object unless(Object x) {
+            return x;
         }
     }
 }

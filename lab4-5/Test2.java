@@ -7,7 +7,7 @@ public class Test2 {
     PrintStream old = System.out;
     ByteArrayOutputStream baos;
     PrintStream ps;
-    
+
     cs2030s.fp.Constant<Integer> zero = new cs2030s.fp.Constant<>() {
       public Integer init() {
         return 0;
@@ -18,7 +18,7 @@ public class Test2 {
         System.out.println(i);
       }
     };
-    
+
     try {
       we.expect(
         "Actually.<Number>ok(0).unwrap()",
@@ -28,7 +28,7 @@ public class Test2 {
     } catch(Exception e) {
       System.out.println("Unexpected error occurs");
     }
-    
+
     baos = new ByteArrayOutputStream();
     ps = new PrintStream(baos);
     System.setOut(ps);
@@ -37,7 +37,7 @@ public class Test2 {
                    "9",
                    baos,
                    old);
-                   
+
     baos = new ByteArrayOutputStream();
     ps = new PrintStream(baos);
     System.setOut(ps);
@@ -46,7 +46,7 @@ public class Test2 {
                    "",
                    baos,
                    old);
-    
+
     we.expect(
       "Actually.<Number>ok(9).except(zero)",
       cs2030s.fp.Actually.<Number>ok(9).except(zero).toString(),
@@ -57,7 +57,7 @@ public class Test2 {
       cs2030s.fp.Actually.<Number>err(new ArithmeticException("div by 0")).except(zero).toString(),
       "0"
     );
-    
+
     we.expect(
       "Actually.<Number>err(new ArithmeticException(\"div by 0\")).unless(4)",
       cs2030s.fp.Actually.<Number>err(new ArithmeticException("div by 0")).unless(4).toString(),

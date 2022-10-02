@@ -10,10 +10,14 @@ public abstract class Actually<T> {
         return new Failure(exc);
     }
 
-    final private static class Success<T> extends Actually<T> {
+    final public static class Success<T> extends Actually<T> {
         private final T res;
 
-        Success(T res) {
+        // private Success() {
+        //     throw RuntimeException;
+        // }
+
+        private Success(T res) {
             this.res = res;
         }
 
@@ -46,10 +50,10 @@ public abstract class Actually<T> {
         }
     }
 
-    final private static class Failure extends Actually<Object> {
+    final static class Failure extends Actually<Object> {
         private final Exception exc;
 
-        Failure(Exception exc) {
+        private Failure(Exception exc) {
             this.exc = exc;
         }
 
@@ -65,11 +69,10 @@ public abstract class Actually<T> {
             }
             if (x instanceof Failure) {
                 Failure some = (Failure) x;
-                if (this.exc.getMessage() == some.exc.getMessage()) {
-                    return true;
-                }
-                if (this.exc == null || some.exc == null) {
+                if (this.exc.getMessage() == null || some.exc.getMessage() == null) {
                     return false;
+                } else if (this.exc.getMessage() == some.exc.getMessage()) {
+                    return true;
                 }
                 // TODO
                 return this.exc.equals(some.exc);

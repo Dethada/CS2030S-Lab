@@ -2,20 +2,18 @@ package cs2030s.fp;
 
 public abstract class Actually<T> {
 
-    public static <T> Success<T> ok(T res) {
+    public static <T> Actually<T> ok(T res) {
         return (Success<T>) new Success<>(res);
     }
 
-    public static Failure err(Exception exc) {
+    public static Actually<Object> err(Exception exc) {
         return new Failure(exc);
     }
 
-    final public static class Success<T> extends Actually<T> {
-        private final T res;
+    public abstract boolean equals(Object x);
 
-        // private Success() {
-        //     throw RuntimeException;
-        // }
+    private static final class Success<T> extends Actually<T> {
+        private final T res;
 
         private Success(T res) {
             this.res = res;
@@ -50,7 +48,7 @@ public abstract class Actually<T> {
         }
     }
 
-    final static class Failure extends Actually<Object> {
+    private static final class Failure extends Actually<Object> {
         private final Exception exc;
 
         private Failure(Exception exc) {

@@ -1,6 +1,6 @@
 package cs2030s.fp;
 
-public abstract class Actually<T> {
+public abstract class Actually<T> implements Immutatorable<T> {
 
     public static <T> Actually<T> ok(T res) {
         return (Success<T>) new Success<>(res);
@@ -76,6 +76,17 @@ public abstract class Actually<T> {
         public T unless(T x) {
             return this.res;
         }
+
+        @Override
+        public <R> Actually<R> transform(Immutator<? extends R, ? super T> x) {
+            Actually<R> tmp;
+            try {
+                tmp = Actually.ok(x.invoke(this.res));
+            } catch(Exception e) {
+                tmp = Actually.err(e);
+            }
+            return tmp;
+        }
     }
 
     private static final class Failure extends Actually<Object> {
@@ -87,7 +98,7 @@ public abstract class Actually<T> {
 
         @Override
         public String toString() {
-            return "[" + this.exc.getClass() + "] " + this.exc.getMessage();
+            return "[" + this.exc.getClass().getCanonicalName() + "] " + this.exc.getMessage();
         }
 
         @Override
@@ -125,6 +136,11 @@ public abstract class Actually<T> {
         @Override
         public Object unless(Object x) {
             return x;
+        }
+
+        @Override
+        public <R> Actually<R> transform(Immutator<? extends R, ? super Object> x) {
+            return Actually.err(this.exc);
         }
     }
 }

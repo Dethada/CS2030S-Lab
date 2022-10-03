@@ -18,7 +18,7 @@ public abstract class Actually<T> {
 
     public abstract T except(Constant<? extends T> x);
 
-    // public abstract void finish(Action<T> x);
+    public abstract void finish(Action<T> x);
 
     public abstract T unless(T x);
 
@@ -67,10 +67,10 @@ public abstract class Actually<T> {
             return this.res;
         }
 
-        // @Override
-        // public void finish(Action<T> x) {
-        //     x.call(this.res);
-        // }
+        @Override
+        public void finish(Action<T> x) {
+            x.call(this.res);
+        }
 
         @Override
         public T unless(T x) {
@@ -118,9 +118,9 @@ public abstract class Actually<T> {
             return x.init();
         }
 
-        // @Override
-        // public void finish(Action<Object> x) {
-        // }
+        @Override
+        public void finish(Action<Object> x) {
+        }
 
         @Override
         public Object unless(Object x) {

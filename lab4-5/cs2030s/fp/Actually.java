@@ -6,8 +6,10 @@ public abstract class Actually<T> {
         return (Success<T>) new Success<>(res);
     }
 
-    public static Actually<Object> err(Exception exc) {
-        return new Failure(exc);
+    public static <T> Actually<T> err(Exception exc) {
+        @SuppressWarnings("unchecked")
+        Actually<T> tmp = (Actually<T>) new Failure(exc);
+        return tmp;
     }
 
     public abstract boolean equals(Object x);
@@ -16,7 +18,7 @@ public abstract class Actually<T> {
 
     public abstract T except(Constant<? extends T> x);
 
-    public abstract void finish(Action<? extends T> x);
+    // public abstract void finish(Action<T> x);
 
     public abstract T unless(T x);
 
@@ -65,10 +67,10 @@ public abstract class Actually<T> {
             return this.res;
         }
 
-        @Override
-        public void finish(Action<? extends T> x) {
-            x.call(this.res);
-        }
+        // @Override
+        // public void finish(Action<T> x) {
+        //     x.call(this.res);
+        // }
 
         @Override
         public T unless(T x) {
@@ -116,9 +118,9 @@ public abstract class Actually<T> {
             return x.init();
         }
 
-        @Override
-        public void finish(Action<Object> x) {
-        }
+        // @Override
+        // public void finish(Action<Object> x) {
+        // }
 
         @Override
         public Object unless(Object x) {

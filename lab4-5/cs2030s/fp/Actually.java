@@ -1,6 +1,6 @@
 package cs2030s.fp;
 
-public abstract class Actually<T> implements Immutatorable<T> {
+public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
 
     public static <T> Actually<T> ok(T res) {
         return (Success<T>) new Success<>(res);
@@ -87,6 +87,14 @@ public abstract class Actually<T> implements Immutatorable<T> {
             }
             return tmp;
         }
+
+        @Override
+        public void act(Action<? super T> action) {
+            if (this.res == null) {
+                return;
+            }
+            action.call(this.res);
+        }
     }
 
     private static final class Failure extends Actually<Object> {
@@ -141,6 +149,10 @@ public abstract class Actually<T> implements Immutatorable<T> {
         @Override
         public <R> Actually<R> transform(Immutator<? extends R, ? super Object> x) {
             return Actually.err(this.exc);
+        }
+
+        @Override
+        public void act(Action<? super Object> action) {
         }
     }
 }

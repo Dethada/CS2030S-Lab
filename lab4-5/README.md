@@ -5,3 +5,4 @@ Incorrect type for apply (? extends Immutator<? extends R, ? super T>) -1
 
 - [ ] Add wildcards
 - [ ] Check access modifiers
+- [ ] Add Javadoc at top of files

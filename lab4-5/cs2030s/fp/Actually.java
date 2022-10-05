@@ -26,11 +26,11 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
 
   public abstract T except(Constant<? extends T> x);
 
-  public abstract void finish(Action<T> x);
+  public abstract void finish(Action<? super T> x);
 
   public abstract T unless(T x);
 
-  public abstract <R> Actually<R> next(Immutator<Actually<R>, T> x);
+  public abstract <R> Actually<R> next(Immutator<? extends Actually<R>, ? super T> x);
 
   private static final class Success<T> extends Actually<T> {
     private final T res;
@@ -77,7 +77,7 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
     }
 
     @Override
-    public void finish(Action<T> x) {
+    public void finish(Action<? super T> x) {
       x.call(this.res);
     }
 
@@ -106,7 +106,7 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
     }
 
     @Override
-    public <R> Actually<R> next(Immutator<Actually<R>, T> x) {
+    public <R> Actually<R> next(Immutator<? extends Actually<R>, ? super T> x) {
       try {
         return x.invoke(this.res);
       } catch (Exception e) {
@@ -171,7 +171,7 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
     public void act(Action<? super Object> action) {}
 
     @Override
-    public <R> Actually<R> next(Immutator<Actually<R>, Object> x) {
+    public <R> Actually<R> next(Immutator<? extends Actually<R>, Object> x) {
       return Actually.err(this.exc);
     }
   }

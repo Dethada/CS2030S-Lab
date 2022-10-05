@@ -10,7 +10,7 @@ package cs2030s.fp;
  * @author David Zhu (Group 12B)
  */
 public abstract class Transformer<R, P> implements Immutator<R, P> {
-  public <N> Transformer<R, N> after(Transformer<P, N> g) {
+  public <N> Transformer<R, N> after(Transformer<? extends P, ? super N> g) {
     return new Transformer<R, N>() {
       @Override
       public R invoke(N x) {
@@ -19,7 +19,7 @@ public abstract class Transformer<R, P> implements Immutator<R, P> {
     };
   }
 
-  public <T> Transformer<T, P> before(Transformer<T, R> g) {
+  public <T> Transformer<T, P> before(Transformer<? extends T, ? super R> g) {
     return new Transformer<T, P>() {
       @Override
       public T invoke(P x) {

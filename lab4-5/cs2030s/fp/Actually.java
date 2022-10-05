@@ -22,6 +22,8 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
 
     public abstract T unless(T x);
 
+    public abstract <R> Actually<R> next(Immutator<Actually<R>, T> x);
+
     private static final class Success<T> extends Actually<T> {
         private final T res;
 
@@ -95,6 +97,15 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
             }
             action.call(this.res);
         }
+
+        @Override
+        public <R> Actually<R> next(Immutator<Actually<R>, T> x) {
+            try {
+                return x.invoke(this.res);
+            } catch(Exception e) {
+                return Actually.err(e);
+            }
+        }
     }
 
     private static final class Failure extends Actually<Object> {
@@ -153,6 +164,11 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
 
         @Override
         public void act(Action<? super Object> action) {
+        }
+
+        @Override
+        public <R> Actually<R> next(Immutator<Actually<R>, Object> x) {
+            return Actually.err(this.exc);
         }
     }
 }

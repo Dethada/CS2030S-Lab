@@ -2,19 +2,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class Test2 {
-  public static void main(String[] args) {
-    CS2030STest we = new CS2030STest();
-    PrintStream old = System.out;
+  public static void main(final String[] args) {
+    final CS2030STest we = new CS2030STest();
+    final PrintStream old = System.out;
     ByteArrayOutputStream baos;
     PrintStream ps;
 
-    cs2030s.fp.Constant<Integer> zero =
+    final cs2030s.fp.Constant<Integer> zero =
         new cs2030s.fp.Constant<>() {
           public Integer init() {
             return 0;
           }
         };
-    cs2030s.fp.Action<Integer> print =
+    final cs2030s.fp.Action<Integer> print =
         new cs2030s.fp.Action<>() {
           public void call(Integer i) {
             System.out.println(i);
@@ -26,7 +26,7 @@ public class Test2 {
           "Actually.<Number>ok(0).unwrap()",
           cs2030s.fp.Actually.<Number>ok(0).unwrap().toString(),
           "0");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       System.out.println("Unexpected error occurs");
     }
 

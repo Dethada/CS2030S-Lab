@@ -1,4 +1,13 @@
 package cs2030s.fp;
+/**
+ * <pre>The Actually class that imitates Result behaviour of rust.
+ *
+ * CS2030S Lab 5
+ * AY22/23 Semester 1
+ * </pre>
+ *
+ * @author David Zhu (Group 12B)
+ */
 
 public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
 

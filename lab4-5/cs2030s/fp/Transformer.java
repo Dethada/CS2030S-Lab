@@ -1,4 +1,14 @@
 package cs2030s.fp;
+/**
+ * <pre>The Transformer class that can
+ * chain functions together.
+ *
+ * CS2030S Lab 5
+ * AY22/23 Semester 1
+ * </pre>
+ *
+ * @author David Zhu (Group 12B)
+ */
 
 public abstract class Transformer<R, P> implements Immutator<R, P> {
   public <N> Transformer<R, N> after(Transformer<P, N> g) {

@@ -8,7 +8,6 @@ package cs2030s.fp;
  *
  * @author David Zhu (Group 12B)
  */
-
 public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
 
   public static <T> Actually<T> ok(T res) {
@@ -62,7 +61,6 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
         if (this.res == null || some.res == null) {
           return false;
         }
-        // TODO
         return this.res.equals(some.res);
       }
       return false;
@@ -141,7 +139,6 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
         } else if (this.exc.getMessage() == some.exc.getMessage()) {
           return true;
         }
-        // TODO
         return this.exc.equals(some.exc);
       }
       return false;

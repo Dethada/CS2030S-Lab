@@ -1,3 +1,12 @@
+/**
+ * <pre>The Lab5 class.
+ *
+ * CS2030S Lab 5
+ * AY22/23 Semester 1
+ * </pre>
+ *
+ * @author David Zhu (Group 12B)
+ */
 import cs2030s.fp.Action;
 import cs2030s.fp.Actually;
 import cs2030s.fp.Constant;
@@ -31,6 +40,7 @@ class Lab5 {
             Map<String, Map<String, Map<String, String>>>>
         getModule =
             new Immutator<>() {
+              @Override
               public Actually<Map<String, Map<String, String>>> invoke(
                   Map<String, Map<String, Map<String, String>>> p) {
                 return Actually.<Map<String, Map<String, String>>>ok(p.get(module));
@@ -38,12 +48,14 @@ class Lab5 {
             };
     Immutator<Actually<Map<String, String>>, Map<String, Map<String, String>>> getStudent =
         new Immutator<>() {
+          @Override
           public Actually<Map<String, String>> invoke(Map<String, Map<String, String>> p) {
             return Actually.<Map<String, String>>ok(p.get(student));
           }
         };
     Immutator<Actually<String>, Map<String, String>> getAssessment =
         new Immutator<>() {
+          @Override
           public Actually<String> invoke(Map<String, String> p) {
             return Actually.<String>ok(p.get(assessment).toString());
           }

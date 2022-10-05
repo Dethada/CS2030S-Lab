@@ -8,7 +8,6 @@ package cs2030s.fp;
  *
  * @author David Zhu (Group 12B)
  */
-
 public interface Constant<T> {
   T init();
 }

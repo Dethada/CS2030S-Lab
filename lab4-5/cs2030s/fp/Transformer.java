@@ -9,7 +9,6 @@ package cs2030s.fp;
  *
  * @author David Zhu (Group 12B)
  */
-
 public abstract class Transformer<R, P> implements Immutator<R, P> {
   public <N> Transformer<R, N> after(Transformer<P, N> g) {
     return new Transformer<R, N>() {

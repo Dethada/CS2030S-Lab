@@ -1,9 +1,8 @@
 package cs2030s.fp;
 
 /**
- * Represent a function that immutate one value into another, possible of different types.
- * CS2030S Lab 5
- * AY22/23 Semester 1
+ * Represent a function that immutate one value into another, possible of different types. CS2030S
+ * Lab 5 AY22/23 Semester 1
  *
  * @param <R> The type of the result value.
  * @param <P> The type of the input value.

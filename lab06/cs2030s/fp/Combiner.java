@@ -1,10 +1,8 @@
 package cs2030s.fp;
 
 /**
- * Represent a function that combines two values into one.  The two inputs
- * and the result can be of different types.
- * CS2030S Lab 5
- * AY20/21 Semester 2
+ * Represent a function that combines two values into one. The two inputs and the result can be of
+ * different types. CS2030S Lab 5 AY20/21 Semester 2
  *
  * @param <R> The type of the return value
  * @param <S> The type of the first input value

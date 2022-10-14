@@ -32,7 +32,6 @@ public class Memo<T> extends Lazy<T> {
 
   @Override
   public String toString() {
-    Immutator<Actually<String>, T> getString = x -> Actually.ok(x.toString());
-    return this.value.next(getString).unless("?");
+    return this.value.next(x -> Actually.ok(x.toString())).unless("?");
   }
 }

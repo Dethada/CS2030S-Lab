@@ -32,6 +32,20 @@ public class Memo<T> extends Lazy<T> {
 
   @Override
   public String toString() {
+    // Immutator<String, T> toStr = x -> x.toString();
+    // return this.value.<String>transform(toStr);
+    // return this.value.transform(String::valueOf).unless("?");
     return this.value.next(x -> Actually.ok(x.toString())).unless("?");
+    // return String.valueOf(this.value.unless("?"));
+  }
+
+  @Override
+  public <R> Memo<R> transform(Immutator<? extends R, ? super T> f) {
+    return Memo.from(() -> f.invoke(this.get()));
+  }
+
+  @Override
+  public <R> Memo<R> next(Immutator<? extends Lazy<R>, ? super T> f) {
+    return Memo.from(() -> f.invoke(this.get()).get());
   }
 }

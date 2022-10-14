@@ -88,13 +88,11 @@ public abstract class Actually<T> implements Immutatorable<T>, Actionable<T> {
 
     @Override
     public <R> Actually<R> transform(Immutator<? extends R, ? super T> x) {
-      Actually<R> tmp;
       try {
-        tmp = Actually.ok(x.invoke(this.res));
+        return Actually.<R>ok(x.invoke(this.res));
       } catch (Exception e) {
-        tmp = Actually.err(e);
+        return Actually.err(e);
       }
-      return tmp;
     }
 
     @Override

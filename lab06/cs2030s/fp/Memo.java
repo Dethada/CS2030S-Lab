@@ -48,4 +48,8 @@ public class Memo<T> extends Lazy<T> {
   public <R> Memo<R> next(Immutator<? extends Lazy<R>, ? super T> f) {
     return Memo.from(() -> f.invoke(this.get()).get());
   }
+
+  public <R, S> Memo<R> combine(Memo<S> x, Combiner<? extends R, ? super T, ? super S> c) {
+    return Memo.from(() -> c.combine(this.get(), x.get()));
+  }
 }

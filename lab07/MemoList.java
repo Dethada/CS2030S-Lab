@@ -47,6 +47,22 @@ class MemoList<T> {
     return memoList;
   }
 
+  public static <T> MemoList<T> generate(int n, T fst, T snd, Combiner<? extends T, ? super T, ? super T> f) {
+    MemoList<T> memoList = new MemoList<>(new ArrayList<>());
+    Memo<T> xfst = Memo.from(fst);
+    Memo<T> xsnd = Memo.from(snd);
+    memoList.list.add(xfst);
+    memoList.list.add(xsnd);
+    for (int i = 2; i < n; i++ ) {
+      Memo<T> tfst = xfst;
+      Memo<T> tsnd = xsnd;
+      xfst = xsnd;
+      xsnd = Memo.from(() -> f.combine(tfst.get(), tsnd.get()));
+      memoList.list.add(xsnd);
+    }
+    return memoList;
+  }
+
   /**
    * Return the element at index i of the list.
    *

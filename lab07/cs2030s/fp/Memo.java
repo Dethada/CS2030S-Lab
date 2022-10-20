@@ -8,22 +8,22 @@ package cs2030s.fp;
  * @version CS2030S AY 22/23 Sem 1
  */
 public class Memo<T> implements Immutatorable<T> {
-  
+
   private Constant<? extends T> com;
   private Actually<T> val;
-  
+
   private Memo(Actually<T> val, Constant<T> com) {
     this.com = com;
     this.val = val;
   }
-  
+
   public static <T> Memo<T> from(T val) {
     return new Memo<T>(Actually.ok(val), null);
   }
   public static <T> Memo<T> from(Constant<T> com) {
     return new Memo<T>(Actually.err(), com);
   }
-  
+
   public T get() {
     this.eval();
     return this.val.unless(null);
@@ -34,7 +34,7 @@ public class Memo<T> implements Immutatorable<T> {
       this.com = null;
     }
   }
-  
+
   @Override
   public <R> Memo<R> transform(Immutator<? extends R, ? super T> f) {
     return Memo.<R>from(() -> f.invoke(this.get()));
@@ -48,7 +48,7 @@ public class Memo<T> implements Immutatorable<T> {
   public Memo<Boolean> check(Immutator<Boolean, ? super T> pred) {
     return Memo.<Boolean>from(() -> pred.invoke(this.get()));
   }
-  
+
   @Override
   public String toString() {
     if (this.com != null) {
@@ -56,7 +56,7 @@ public class Memo<T> implements Immutatorable<T> {
     }
     return this.get().toString();
   }
-  
+
   @Override
   public boolean equals(Object obj) {
     if (obj == this) {

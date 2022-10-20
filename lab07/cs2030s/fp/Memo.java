@@ -1,8 +1,7 @@
 package cs2030s.fp;
 
 /**
- * A container class the encapsulate a
- * lazily-evaluated-and-memoized value.
+ * A container class the encapsulate a lazily-evaluated-and-memoized value.
  *
  * @author Adi Yoga S. Prabawa
  * @version CS2030S AY 22/23 Sem 1
@@ -20,6 +19,7 @@ public class Memo<T> implements Immutatorable<T> {
   public static <T> Memo<T> from(T val) {
     return new Memo<T>(Actually.ok(val), null);
   }
+
   public static <T> Memo<T> from(Constant<T> com) {
     return new Memo<T>(Actually.err(), com);
   }
@@ -28,6 +28,7 @@ public class Memo<T> implements Immutatorable<T> {
     this.eval();
     return this.val.unless(null);
   }
+
   private void eval() {
     if (this.com != null) {
       this.val = Actually.<T>ok(this.com.init());
@@ -39,12 +40,15 @@ public class Memo<T> implements Immutatorable<T> {
   public <R> Memo<R> transform(Immutator<? extends R, ? super T> f) {
     return Memo.<R>from(() -> f.invoke(this.get()));
   }
+
   public <R> Memo<R> next(Immutator<? extends Memo<? extends R>, ? super T> f) {
     return Memo.<R>from(() -> f.invoke(this.get()).get());
   }
+
   public <S, R> Memo<R> combine(Memo<S> snd, Combiner<? extends R, ? super T, ? super S> f) {
     return Memo.<R>from(() -> f.combine(this.get(), snd.get()));
   }
+
   public Memo<Boolean> check(Immutator<Boolean, ? super T> pred) {
     return Memo.<Boolean>from(() -> pred.invoke(this.get()));
   }

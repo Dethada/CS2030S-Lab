@@ -1,9 +1,7 @@
 package cs2030s.fp;
 
 /**
- * Represent a function that acts on a value.
- * CS2030S Lab 5
- * AY22/23 Semester 1
+ * Represent a function that acts on a value. CS2030S Lab 5 AY22/23 Semester 1
  *
  * @param <T> The type of the input value.
  */

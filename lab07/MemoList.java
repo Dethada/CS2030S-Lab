@@ -92,4 +92,17 @@ class MemoList<T> {
   public String toString() {
     return this.list.toString();
   }
+
+  public <R> MemoList<R> map(Immutator<? extends R, ? super T> f) {
+    MemoList<R> memoList = new MemoList<>(new ArrayList<>());
+    for (Memo<T> x : this.list) {
+      Memo<R> tmp = Memo.from(() -> f.invoke(x.get()));
+      memoList.list.add(tmp);
+    }
+    return memoList;
+  }
+
+  // public <R> MemoList<R> flatMap(Immutator<MemoList<R>, ? super T> f) {
+  //
+  // }
 }

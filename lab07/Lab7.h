@@ -12,7 +12,6 @@ mv Combiner.java cs2030s/fp/Combiner.java
 mv Constant.java cs2030s/fp/Constant.java
 mv Immutator.java cs2030s/fp/Immutator.java
 mv Immutatorable.java cs2030s/fp/Immutatorable.java
-mv Lazy.java cs2030s/fp/Lazy.java
 mv Memo.java cs2030s/fp/Memo.java
 
 javac cs2030s/fp/*.java

@@ -4,7 +4,7 @@ import cs2030s.fp.Memo;
 public class Test4 {
   public static void main(String[] args) {
     CS2030STest we = new CS2030STest();
-    
+
     int[] _dupl = new int[]{0};
     int[] _copy = new int[]{0};
     Immutator<MemoList<Integer>, Integer> dupl = x -> {
@@ -14,14 +14,14 @@ public class Test4 {
         return x;
       });
     };
-    
+
     MemoList<Integer> nat = MemoList.generate(5, 1, x -> x + 1);
     we.expect(
       "An initial natural number only has a single evaluated element",
       nat.toString(),
       "[1, ?, ?, ?, ?]"
     );
-    
+
     MemoList<Integer> superNat = nat.flatMap(dupl);
     we.expect(
       "An initial super natural number has 5 evaluated element",
@@ -33,7 +33,7 @@ public class Test4 {
       _dupl[0],
       5
     );
-    
+
     we.expect(
       "... and there are 0 evaluation on copy",
       _copy[0],
@@ -65,7 +65,7 @@ public class Test4 {
       _copy[0],
       0
     );
-    
+
     superEven.get(12);
     we.expect(
       "Retrieving index 12 on super even number causes 1 evaluation on dbl ...",
@@ -82,7 +82,7 @@ public class Test4 {
       _copy[0],
       2
     );
-    
+
     we.expect(
       "Final super even number to contain 1 evaluated element",
       superEven.toString(),
@@ -98,7 +98,7 @@ public class Test4 {
       nat.toString(),
       "[1, 2, 3, 4, 5]"
     );
-    
+
     MemoList<Integer> nat2 = MemoList.generate(5, 1, x -> x + 1);
     MemoList<MemoList<Integer>> nestNat2 = nat2.map(dupl);
     we.expect(
@@ -111,7 +111,7 @@ public class Test4 {
       _dupl[0],
       5
     );
-    
+
     nestNat2.get(2);
     we.expect(
       "Retrieving index 2 on nested natural number causes 1 evaluation on dupl ...",
@@ -123,7 +123,7 @@ public class Test4 {
       _dupl[0],
       6
     );
-    
+
     for (int i=0; i<5; i++) {
       nestNat2.get(i);
     }

@@ -102,7 +102,13 @@ class MemoList<T> {
     return memoList;
   }
 
-  // public <R> MemoList<R> flatMap(Immutator<MemoList<R>, ? super T> f) {
-  //
-  // }
+  public <R> MemoList<R> flatMap(Immutator<MemoList<R>, ? super T> f) {
+    MemoList<R> memoList = new MemoList<>(new ArrayList<>());
+    for (Memo<T> x : this.list) {
+      for (Memo<R> y : f.invoke(x.get()).list) {
+        memoList.list.add(y);
+      }
+    }
+    return memoList;
+  }
 }

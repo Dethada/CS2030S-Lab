@@ -5,6 +5,12 @@ import java.util.List;
 public class InfiniteList<T> {
   private Memo<Actually<T>> head;
   private Memo<InfiniteList<T>> tail;
+  private static final End END = new End();
+
+  private InfiniteList() {
+    this.head = null;
+    this.tail = null;
+  }
 
   private InfiniteList(Memo<Actually<T>> head, Memo<InfiniteList<T>> tail) {
     this.head = head;
@@ -79,9 +85,45 @@ public class InfiniteList<T> {
   }
 
   public boolean isEnd() {
-    return false;
+    return this.equals(InfiniteList.END);
   }
 
 
-  // Add your End class here...
+  private static final class End extends InfiniteList<Object> {
+    private End() {
+      super();
+    }
+
+    @Override
+    public Object head() {
+      throw new java.util.NoSuchElementException();
+    }
+
+    @Override
+    public InfiniteList<Object> tail() {
+      throw new java.util.NoSuchElementException();
+    }
+
+    @Override
+    public <R> InfiniteList<R> map(Immutator<? extends R, ? super Object> op) {
+      return InfiniteList.<R>end();
+    }
+
+    @Override
+    public InfiniteList<Object> filter(Immutator<Boolean, ? super Object> op)  {
+      return InfiniteList.end();
+    }
+
+    @Override
+    public String toString() {
+      return "[]";
+    }
+
+  }
+
+  public static <T> InfiniteList<T> end() {
+    @SuppressWarnings("unchecked")
+    InfiniteList<T> res = (InfiniteList<T>) InfiniteList.END;
+    return res;
+  }
 }

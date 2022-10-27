@@ -54,8 +54,13 @@ public class InfiniteList<T> {
   }
 
   public InfiniteList<T> limit(long n) {
-    // TODO
-    return new InfiniteList<>(null, null);
+    if (n <= 0) {
+      return InfiniteList.end();
+    }
+    return new InfiniteList<T>(
+      Memo.from(() -> Actually.ok(this.head())),
+      Memo.from(() -> this.tail().limit(n-1))
+    );
   }
 
   public InfiniteList<T> takeWhile(Immutator<Boolean, ? super T> pred) {
@@ -65,6 +70,7 @@ public class InfiniteList<T> {
 
   public List<T> toList() {
     // TODO
+    // Actually.finish()
     return List.of();
   }
 
@@ -111,6 +117,11 @@ public class InfiniteList<T> {
 
     @Override
     public InfiniteList<Object> filter(Immutator<Boolean, ? super Object> op)  {
+      return InfiniteList.end();
+    }
+
+    @Override
+    public InfiniteList<Object> limit(long n) {
       return InfiniteList.end();
     }
 

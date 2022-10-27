@@ -1,6 +1,7 @@
 package cs2030s.fp;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class InfiniteList<T> {
   private Memo<Actually<T>> head;
@@ -59,6 +60,7 @@ public class InfiniteList<T> {
     }
     return new InfiniteList<T>(
       Memo.from(() -> Actually.ok(this.head())),
+      // Memo.from(Actually.ok(this.head())),
       Memo.from(() -> this.tail().limit(n-1))
     );
   }
@@ -69,9 +71,15 @@ public class InfiniteList<T> {
   }
 
   public List<T> toList() {
-    // TODO
-    // Actually.finish()
-    return List.of();
+    List<T> list = new ArrayList<>(new ArrayList<>());
+    InfiniteList<T> tmp = this;
+    while (!tmp.isEnd()) {
+      list.add(tmp.head());
+      tmp = tmp.tail();
+    }
+    // this.head.get().finish(x -> list.add(x));
+    // return List.of();
+    return list;
   }
 
   public <U> U reduce (U id, Combiner<U, U, ? super T> acc) {

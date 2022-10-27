@@ -35,8 +35,9 @@ public class InfiniteList<T> {
   }
 
   public <R> InfiniteList<R> map(Immutator<? extends R, ? super T> f) {
-    // TODO
-    return new InfiniteList<>(null, null);
+    return new InfiniteList<R>(
+      Memo.from(() -> Actually.ok(f.invoke(this.head()))),
+      Memo.from(() -> this.tail().map(f)));
   }
 
   public InfiniteList<T> filter(Immutator<Boolean, ? super T> pred) {

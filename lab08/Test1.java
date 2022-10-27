@@ -33,9 +33,9 @@ class Test1 {
         () -> InfiniteList.iterate("A", x -> x + "Z").tail().tail().head(), "AZZ");
 
     List<Integer> evalHistory = new ArrayList<>();
-    Immutator<Integer, Integer> op = x -> { 
-      evalHistory.add(x); 
-      return x + 1; 
+    Immutator<Integer, Integer> op = x -> {
+      evalHistory.add(x);
+      return x + 1;
     };
 
     InfiniteList<Integer> numbers = InfiniteList.iterate(1, op);
@@ -69,9 +69,9 @@ class Test1 {
     i.expectReturn("numbers.toString())",
         () -> numbers.toString(), "[<1> [<2> [<3> ?]]]");
 
-    InfiniteList<Integer> zeros = InfiniteList.generate(() -> { 
-      evalHistory.add(0); 
-      return 0; 
+    InfiniteList<Integer> zeros = InfiniteList.generate(() -> {
+      evalHistory.add(0);
+      return 0;
     });
     evalHistory.retainAll(List.of());
     i.expect("InfiniteList<Integer> zeros = InfiniteList.generate(() -> 0)\n" +
@@ -101,7 +101,7 @@ class Test1 {
         evalHistory, List.of(0, 0));
     i.expect("zeros.toString() returns [<0> [<0> ?]]",
         () -> zeros.toString(), "[<0> [<0> ?]]");
-        
+
     zeros.tail().tail().head();
     i.expect("zeros.tail().tail().head() causes one more evaluation of () -> 0",
         evalHistory, List.of(0, 0, 0));

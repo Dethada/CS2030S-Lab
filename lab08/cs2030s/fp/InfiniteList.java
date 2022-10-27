@@ -5,7 +5,7 @@ import java.util.List;
 public class InfiniteList<T> {
   private Memo<Actually<T>> head;
   private Memo<InfiniteList<T>> tail;
-  
+
   private InfiniteList(Memo<Actually<T>> head, Memo<InfiniteList<T>> tail) {
     this.head = head;
     this.tail = tail;
@@ -13,45 +13,47 @@ public class InfiniteList<T> {
   // You may add other private constructor but it's not necessary.
 
   public static <T> InfiniteList<T> generate(Constant<T> prod) {
-    // TODO
-    return new InfiniteList<>(null, null);
+    return new InfiniteList<T>(
+        Memo.from(() -> Actually.ok(prod.init())),
+        Memo.from(() -> InfiniteList.generate(prod)));
   }
 
   public static <T> InfiniteList<T> iterate(T seed, Immutator<T, T> func) {
-    // TODO
-    return new InfiniteList<>(null, null);
+    return new InfiniteList<T>(
+      Memo.from(() -> Actually.ok(seed)),
+      Memo.from(() -> InfiniteList.iterate(func.invoke(seed), func)));
   }
-  
+
   public T head() {
-    // TODO
-    return null;
+    return this.head.get().except(() -> this.tail.get().head());
   }
-  
+
   public InfiniteList<T> tail() {
-    // TODO
-    return new InfiniteList<>(null, null);
+    return this.head.get()
+      .transform(_x -> this.tail.get())
+      .except(() -> this.tail.get().tail());
   }
-  
+
   public <R> InfiniteList<R> map(Immutator<? extends R, ? super T> f) {
     // TODO
     return new InfiniteList<>(null, null);
   }
-  
+
   public InfiniteList<T> filter(Immutator<Boolean, ? super T> pred) {
     // TODO
     return new InfiniteList<>(null, null);
   }
-  
+
   public InfiniteList<T> limit(long n) {
     // TODO
     return new InfiniteList<>(null, null);
   }
-  
+
   public InfiniteList<T> takeWhile(Immutator<Boolean, ? super T> pred) {
     // TODO
     return new InfiniteList<>(null, null);
   }
-  
+
   public List<T> toList() {
     // TODO
     return List.of();
@@ -72,11 +74,11 @@ public class InfiniteList<T> {
   public String toString() {
     return "[" + this.head + " " + this.tail + "]";
   }
-  
+
   public boolean isEnd() {
     return false;
   }
-  
-  
+
+
   // Add your End class here...
 }

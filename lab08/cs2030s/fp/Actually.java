@@ -10,12 +10,12 @@ package cs2030s.fp;
 public class Actually<T> implements Immutatorable<T> {
   private T val;
   private Exception err;
-  
+
   private Actually(T val, Exception err) {
     this.val = val;
     this.err = err;
   }
-  
+
   public static <T> Actually<T> err() {
     // A common error for ease of use
     return new Actually<T>((T) null, new Exception("err"));
@@ -26,7 +26,7 @@ public class Actually<T> implements Immutatorable<T> {
   public static <T> Actually<T> ok(T val) {
     return new Actually<T>(val, null);
   }
-  
+
   public T except(Constant<? extends T> com) {
     return this.err == null ? this.val : com.init();
   }
@@ -59,7 +59,7 @@ public class Actually<T> implements Immutatorable<T> {
     }
     return Actually.err();
   }
-  
+
   @Override
   public String toString() {
     if (this.err != null) {
@@ -67,7 +67,7 @@ public class Actually<T> implements Immutatorable<T> {
     }
     return "<" + this.val + ">";
   }
-  
+
   @Override
   public boolean equals(Object obj) {
     if (obj == this) {

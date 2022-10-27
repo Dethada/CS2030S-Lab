@@ -20,7 +20,7 @@ public class InfiniteList<T> {
 
   public static <T> InfiniteList<T> iterate(T seed, Immutator<T, T> func) {
     return new InfiniteList<T>(
-      Memo.from(() -> Actually.ok(seed)),
+      Memo.from(Actually.ok(seed)),
       Memo.from(() -> InfiniteList.iterate(func.invoke(seed), func)));
   }
 
@@ -41,8 +41,10 @@ public class InfiniteList<T> {
   }
 
   public InfiniteList<T> filter(Immutator<Boolean, ? super T> pred) {
-    // TODO
-    return new InfiniteList<>(null, null);
+    return new InfiniteList<T>(
+      Memo.from(() -> this.head.get().check(pred)),
+      Memo.from(() -> this.tail.get().filter(pred))
+    );
   }
 
   public InfiniteList<T> limit(long n) {

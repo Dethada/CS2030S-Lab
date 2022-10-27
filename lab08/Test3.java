@@ -23,21 +23,21 @@ class Test3 {
 
     List<Integer> incrHistory = new ArrayList<>();
     List<Integer> isEvenHistory = new ArrayList<>();
-    Immutator<Boolean, Integer> isEven = x -> { 
-      isEvenHistory.add(x); 
-      return x % 2 == 0; 
+    Immutator<Boolean, Integer> isEven = x -> {
+      isEvenHistory.add(x);
+      return x % 2 == 0;
     };
-    Immutator<Integer, Integer> incr = x -> { 
-      incrHistory.add(x); 
-      return x + 1; 
+    Immutator<Integer, Integer> incr = x -> {
+      incrHistory.add(x);
+      return x + 1;
     };
 
-    i.expect("InfiniteList.iterate(1, x -> x + 1).filter(x -> x % 2 == 0).tail() " + 
-        ".head()\n" + " ..returns 4", 
+    i.expect("InfiniteList.iterate(1, x -> x + 1).filter(x -> x % 2 == 0).tail() " +
+        ".head()\n" + " ..returns 4",
         InfiniteList.iterate(1, incr).filter(isEven).tail().head(), 4);
-    i.expect(" ..causes three evals on x -> x + 1", 
+    i.expect(" ..causes three evals on x -> x + 1",
         incrHistory, List.of(1, 2, 3));
-    i.expect(" ..causes four evals on x -> x % 2 == 0", 
+    i.expect(" ..causes four evals on x -> x % 2 == 0",
         isEvenHistory, List.of(1, 2, 3, 4));
 
     incrHistory.retainAll(List.of());
@@ -46,31 +46,31 @@ class Test3 {
     InfiniteList<Integer> nums = InfiniteList.iterate(1, incr);
     InfiniteList<Integer> evens = nums.filter(isEven);
     evens.tail().head();
-    i.expect("InfiniteList<Integer> nums = InfiniteList.iterate(1, x -> x + 1)\n" + 
-        "InfiniteList<Integer> evens = nums.filter(x -> x % 2 == 0)\n" + 
+    i.expect("InfiniteList<Integer> nums = InfiniteList.iterate(1, x -> x + 1)\n" +
+        "InfiniteList<Integer> evens = nums.filter(x -> x % 2 == 0)\n" +
         "After evens.tail().head()\n" +
         " ..nums.toString() returns [<1> [<2> [<3> [<4> ?]]]]",
         nums.toString(), "[<1> [<2> [<3> [<4> ?]]]]");
     i.expect(" ..evens.toString() returns [<> [<2> [<> [<4> ?]]]]",
         evens.toString(), "[<> [<2> [<> [<4> ?]]]]");
     nums.tail().head();
-    i.expect(" ..calling nums.tail().head()\n" + 
-        " ....causes zero evaluation of x -> x + 1", 
+    i.expect(" ..calling nums.tail().head()\n" +
+        " ....causes zero evaluation of x -> x + 1",
         incrHistory, List.of(1, 2, 3));
     evens.tail().head();
-    i.expect(" ..calling evens.tail().head()\n" + 
-        " ....causes zero evaluation of x -> x % 2 == 0", 
+    i.expect(" ..calling evens.tail().head()\n" +
+        " ....causes zero evaluation of x -> x % 2 == 0",
         isEvenHistory, List.of(1, 2, 3, 4));
-    i.expect(" ....causes zero evaluation of x -> x + 1", 
+    i.expect(" ....causes zero evaluation of x -> x + 1",
         incrHistory, List.of(1, 2, 3));
 
     incrHistory.retainAll(List.of());
     isEvenHistory.retainAll(List.of());
 
     List<Integer> moreThan5History = new ArrayList<>();
-    Immutator<Boolean, Integer> moreThan5 = x -> { 
-      moreThan5History.add(x); 
-      return x > 5; 
+    Immutator<Boolean, Integer> moreThan5 = x -> {
+      moreThan5History.add(x);
+      return x > 5;
     };
 
     i.expect("InfiniteList.iterate(1, x -> x + 1).filter(x -> x > 5).filter(x -> x % 2 == 0)" +
@@ -89,9 +89,9 @@ class Test3 {
     moreThan5History.retainAll(List.of());
 
     List<Integer> doublerHistory = new ArrayList<>();
-    Immutator<Integer, Integer> doubler = x -> { 
-      doublerHistory.add(x); 
-      return x * 2; 
+    Immutator<Integer, Integer> doubler = x -> {
+      doublerHistory.add(x);
+      return x * 2;
     };
 
     i.expect("InfiniteList.iterate(1, x -> x + 1).map(x -> x * 2).filter(x -> x > 5)" +

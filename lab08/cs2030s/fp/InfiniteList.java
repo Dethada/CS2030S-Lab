@@ -59,8 +59,9 @@ public class InfiniteList<T> {
       return InfiniteList.end();
     }
     return new InfiniteList<T>(
-      Memo.from(() -> Actually.ok(this.head())),
-      // Memo.from(Actually.ok(this.head())),
+      this.head.toString() == "?"
+        ? Memo.from(() -> Actually.ok(this.head()))
+        : Memo.from(Actually.ok(this.head())),
       Memo.from(() -> this.tail().limit(n-1))
     );
   }
@@ -86,19 +87,14 @@ public class InfiniteList<T> {
   public <U> U reduce (U id, Combiner<U, U, ? super T> acc) {
     InfiniteList<T> tmp = this;
     U res = id;
-    // Memo<U> res = Memo.from(id);
     while (!tmp.isEnd()) {
       if (tmp.head.get().transform(_x -> true).unless(false)) {
         res = acc.combine(res, tmp.head());
       }
-      // tmp.head.get().finish(x -> {
-      //   res = res.combine(Memo.from(x), acc);
-      // });
       tmp = tmp.tail.get();
     }
     return res;
   }
-
 
   public long count() {
     return this.map(x -> 1).reduce(0, (x, y) -> x + y);

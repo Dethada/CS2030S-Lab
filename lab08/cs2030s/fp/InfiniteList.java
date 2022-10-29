@@ -39,13 +39,12 @@ public class InfiniteList<T> {
     return this.head.get()
       .transform(_x -> this.tail.get())
       .except(() -> this.tail.get().isEnd() ? this.tail.get() : this.tail.get().tail());
-      // .except(() ->  this.tail.get().tail());
   }
 
   public <R> InfiniteList<R> map(Immutator<? extends R, ? super T> f) {
     return new InfiniteList<R>(
-      Memo.from(() -> Actually.ok(f.invoke(this.head()))),
-      Memo.from(() -> this.tail().map(f)));
+      Memo.from(() -> this.head.get().transform(x -> f.invoke(x))),
+      Memo.from(() -> this.tail.get().map(f)));
   }
 
   public InfiniteList<T> filter(Immutator<Boolean, ? super T> pred) {
@@ -78,7 +77,6 @@ public class InfiniteList<T> {
     List<T> list = new ArrayList<>(new ArrayList<>());
     InfiniteList<T> tmp = this;
     while (!tmp.isEnd()) {
-      // System.out.println(tmp.head.get().toString());
       tmp.head.get().finish(x -> list.add(x));
       tmp = tmp.tail.get();
     }
@@ -86,14 +84,24 @@ public class InfiniteList<T> {
   }
 
   public <U> U reduce (U id, Combiner<U, U, ? super T> acc) {
-    // TODO
-    return null;
+    InfiniteList<T> tmp = this;
+    U res = id;
+    // Memo<U> res = Memo.from(id);
+    while (!tmp.isEnd()) {
+      if (tmp.head.get().transform(_x -> true).unless(false)) {
+        res = acc.combine(res, tmp.head());
+      }
+      // tmp.head.get().finish(x -> {
+      //   res = res.combine(Memo.from(x), acc);
+      // });
+      tmp = tmp.tail.get();
+    }
+    return res;
   }
 
 
   public long count() {
-    // TODO
-    return 0L;
+    return this.map(x -> 1).reduce(0, (x, y) -> x + y);
   }
 
   @Override
@@ -102,7 +110,6 @@ public class InfiniteList<T> {
   }
 
   public boolean isEnd() {
-    // return this.head.get().except(() -> this.tail.get().head());
     return this.equals(InfiniteList.END);
   }
 
@@ -120,7 +127,6 @@ public class InfiniteList<T> {
     @Override
     public InfiniteList<Object> tail() {
       throw new java.util.NoSuchElementException();
-      // return InfiniteList.end();
     }
 
     @Override

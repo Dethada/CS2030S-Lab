@@ -63,7 +63,7 @@ public class InfiniteList<T> {
    * @param func The function to generate values from.
    * @return A infinite list.
    */
-  public static <T> InfiniteList<T> iterate(T seed, Immutator<T, T> func) {
+  public static <T> InfiniteList<T> iterate(T seed, Immutator<? extends T, ? super T> func) {
     return new InfiniteList<T>(
         Memo.from(Actually.ok(seed)),
         Memo.from(() -> InfiniteList.iterate(func.invoke(seed), func)));
@@ -170,7 +170,7 @@ public class InfiniteList<T> {
    * @param acc The combiner function.
    * @return The result of the reduction.
    */
-  public <U> U reduce(U id, Combiner<U, U, ? super T> acc) {
+  public <U> U reduce(U id, Combiner<? extends U, ? super U, ? super T> acc) {
     InfiniteList<T> tmp = this;
     U res = id;
     while (!tmp.isEnd()) {

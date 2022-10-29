@@ -38,7 +38,8 @@ public class InfiniteList<T> {
   public InfiniteList<T> tail() {
     return this.head.get()
       .transform(_x -> this.tail.get())
-      .except(() -> this.tail.get().tail());
+      .except(() -> this.tail.get().isEnd() ? this.tail.get() : this.tail.get().tail());
+      // .except(() ->  this.tail.get().tail());
   }
 
   public <R> InfiniteList<R> map(Immutator<? extends R, ? super T> f) {
@@ -66,19 +67,21 @@ public class InfiniteList<T> {
   }
 
   public InfiniteList<T> takeWhile(Immutator<Boolean, ? super T> pred) {
-    // TODO
-    return new InfiniteList<>(null, null);
+    Memo<Boolean> c = Memo.from(() -> pred.invoke(this.head()));
+    return new InfiniteList<T>(
+      Memo.from(() -> c.get() ? Actually.ok(this.head()) : Actually.err()),
+      Memo.from(() -> c.get() ? this.tail().takeWhile(pred) : InfiniteList.end())
+    );
   }
 
   public List<T> toList() {
     List<T> list = new ArrayList<>(new ArrayList<>());
     InfiniteList<T> tmp = this;
     while (!tmp.isEnd()) {
-      list.add(tmp.head());
-      tmp = tmp.tail();
+      // System.out.println(tmp.head.get().toString());
+      tmp.head.get().finish(x -> list.add(x));
+      tmp = tmp.tail.get();
     }
-    // this.head.get().finish(x -> list.add(x));
-    // return List.of();
     return list;
   }
 
@@ -99,6 +102,7 @@ public class InfiniteList<T> {
   }
 
   public boolean isEnd() {
+    // return this.head.get().except(() -> this.tail.get().head());
     return this.equals(InfiniteList.END);
   }
 
@@ -116,6 +120,7 @@ public class InfiniteList<T> {
     @Override
     public InfiniteList<Object> tail() {
       throw new java.util.NoSuchElementException();
+      // return InfiniteList.end();
     }
 
     @Override
@@ -134,8 +139,13 @@ public class InfiniteList<T> {
     }
 
     @Override
+    public InfiniteList<Object> takeWhile(Immutator<Boolean, ? super Object> pred) {
+      return InfiniteList.end();
+    }
+
+    @Override
     public String toString() {
-      return "[]";
+      return "-";
     }
 
   }

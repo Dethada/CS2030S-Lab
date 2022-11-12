@@ -10,7 +10,7 @@ class Lab9a {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     int n = scanner.nextInt();
-    
+
     // Read matrix 1
     Matrix m1 = new Matrix(n);
     for (int i=0; i<n; i++) {
@@ -18,7 +18,7 @@ class Lab9a {
         m1.m[i][j] = scanner.nextDouble();
       }
     }
-    
+
     // Read matrix 1
     Matrix m2 = new Matrix(n);
     for (int i=0; i<n; i++) {
@@ -26,7 +26,7 @@ class Lab9a {
         m2.m[i][j] = scanner.nextDouble();
       }
     }
-    
+
     // Multiply matrices
     Matrix res = Matrix.parallelMultiply(m1, m2);
     System.out.println(res);

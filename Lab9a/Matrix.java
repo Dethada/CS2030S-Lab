@@ -108,7 +108,7 @@ class Matrix {
     }
     return result;
   }
-
+  
   /**
    * Multiple two matrices non-recursively.
    * @param m1 The matrix to multiply with.
@@ -217,9 +217,7 @@ class Matrix {
    * @return The resulting matrix m1 * m2
    */
   public static Matrix parallelMultiply(Matrix m1, Matrix m2) {
-    // return new MatrixMultiplication(m1, m2, 0, 0, 0, 0, m1.dimension)
-    //     .compute();
-    return ForkJoinPool.commonPool().invoke(new MatrixMultiplication(m1, m2, 0, 0, 0, 0, m1.dimension));
-    // return Matrix.recursiveMultiply(m1, m2);
+    return new MatrixMultiplication(m1, m2, 0, 0, 0, 0, m1.dimension)
+        .compute();
   }
 }

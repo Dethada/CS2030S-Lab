@@ -1,9 +1,18 @@
 import java.util.concurrent.RecursiveTask;
 
+/**
+ * Parallel Matrix Multiplication.
+ *
+ * <p>CS2030S Lab 9a</p>
+ *
+ * @author Adi Yoga S. Prabawa
+ * @author David Zhu (Group 12B)
+ * @version CS2030S AY 22/23 Sem 1
+ */
 class MatrixMultiplication extends RecursiveTask<Matrix> {
 
   /** The fork threshold. */
-  private static final int FORK_THRESHOLD = 32; // Find a good threshold
+  private static final int FORK_THRESHOLD = 128; // Find a good threshold
 
   /** The first matrix to multiply with. */
   private final Matrix m1;
@@ -54,14 +63,11 @@ class MatrixMultiplication extends RecursiveTask<Matrix> {
 
   @Override
   public Matrix compute() {
-    // System.out.println(ForkJoinTask.getSurplusQueuedTaskCount());
-    // System.out.println("The Thread name is " + Thread.currentThread().getName());
-    if (this.dimension <= MatrixMultiplication.FORK_THRESHOLD) {
-      return Matrix.recursiveMultiply(m1, m2, m1Row, m1Col, m2Row, m2Col, dimension);
+    if (this.dimension < MatrixMultiplication.FORK_THRESHOLD) {
+      return Matrix.nonRecursiveMultiply(m1, m2, m1Row, m1Col, m2Row, m2Col, dimension);
     }
 
     int size = dimension / 2;
-    Matrix result = new Matrix(dimension);
 
     MatrixMultiplication a11b11t = new MatrixMultiplication(m1, m2, m1Row, m1Col, m2Row,
         m2Col, size);
@@ -91,55 +97,52 @@ class MatrixMultiplication extends RecursiveTask<Matrix> {
         m2Row + size, m2Col + size, size);
     a22b22t.fork();
 
-    double[] m1m = null;
-    double[] m2m = null;
+    Matrix result = new Matrix(dimension);
+    double[] m2112m = null;
+    double[] m2222m = null;
+    double[] m2111m = null;
+    double[] m2221m = null;
+    double[] m1112m = null;
+    double[] m1222m = null;
+    double[] m1111m = null;
+    double[] m1221m = null;
     double[] r1m = null;
+    double[] r2m = null;
+    int j = 0;
+    int tmp = 0;
 
     Matrix a22b22 = a22b22t.join();
     Matrix a21b12 = a21b12t.join();
-
-    for (int i = 0; i < size; i++) {
-      m1m = a21b12.m[i];
-      m2m = a22b22.m[i];
-      r1m = result.m[i + size];
-      for (int j = 0; j < size; j++) {
-        r1m[j + size] = m1m[j] + m2m[j];
-      }
-    }
-
     Matrix a22b21 = a22b21t.join();
     Matrix a21b11 = a21b11t.join();
-
-    for (int i = 0; i < size; i++) {
-      m1m = a21b11.m[i];
-      m2m = a22b21.m[i];
-      r1m = result.m[i + size];
-      for (int j = 0; j < size; j++) {
-        r1m[j] = m1m[j] + m2m[j];
-      }
-    }
-
     Matrix a12b22 = a12b22t.join();
     Matrix a11b12 = a11b12t.join();
-
-    for (int i = 0; i < size; i++) {
-      m1m = a11b12.m[i];
-      m2m = a12b22.m[i];
-      r1m = result.m[i];
-      for (int j = 0; j < size; j++) {
-        r1m[j + size] = m1m[j] + m2m[j];
-      }
-    }
-
     Matrix a12b21 = a12b21t.join();
     Matrix a11b11 = a11b11t.join();
 
     for (int i = 0; i < size; i++) {
-      m1m = a11b11.m[i];
-      m2m = a12b21.m[i];
-      r1m = result.m[i];
-      for (int j = 0; j < size; j++) {
-        r1m[j] = m1m[j] + m2m[j];
+      m2112m = a21b12.m[i];
+      m2222m = a22b22.m[i];
+      r1m = result.m[i + size];
+
+      m2111m = a21b11.m[i];
+      m2221m = a22b21.m[i];
+
+      m1112m = a11b12.m[i];
+      m1222m = a12b22.m[i];
+      r2m = result.m[i];
+
+      m1111m = a11b11.m[i];
+      m1221m = a12b21.m[i];
+      for (j = 0; j < size; j++) {
+        tmp = j + size;
+        r1m[tmp] = m2112m[j] + m2222m[j];
+
+        r1m[j] = m2111m[j] + m2221m[j];
+
+        r2m[tmp] = m1112m[j] + m1222m[j];
+
+        r2m[j] = m1111m[j] + m1221m[j];
       }
     }
 
